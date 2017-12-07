@@ -1,0 +1,15 @@
+﻿<Window x:Class="DeviceDatabase.View.Login"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DeviceDatabase.View"
+        mc:Ignorable="d"
+        Title="Select Role" Height="107.5" Width="248" Loaded="Window_Loaded">
+    <Grid HorizontalAlignment="Left" Width="247" Height="68" VerticalAlignment="Top">
+        <Button Content="IT-Administrator" HorizontalAlignment="Left" Margin="10,34,0,0" VerticalAlignment="Top" Width="96" Click="Button_Click"/>
+        <Button Content="IT-Manager" HorizontalAlignment="Left" Margin="111,34,0,0" VerticalAlignment="Top" Width="96" Click="Button_Click_1"/>
+        <TextBlock HorizontalAlignment="Left" Margin="33,10,0,0" TextWrapping="Wrap" Text="Choose which role you have:" VerticalAlignment="Top"/>
+
+    </Grid>
+</Window>
