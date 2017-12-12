@@ -26,41 +26,23 @@ namespace DeviceDatabase.View
             InitializeComponent();
         }
 
-        //IT-Administrator
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            Device d = new Device { Name = "Laptop 001", SerialCode = "01232ABCD", Status = 0, TypeId = 0, CalamitiesList = new List<Calamity>() };
-            d.CalamitiesList.Add(new Calamity { About = "Lots of smoke", Date = DateTime.Now });
-            DatabaseController.AddDevice(d);
-
-
-
-        }
-        //IT-Manager
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            //List<Device> d = DatabaseController.GetDevices();
-            //foreach (Device b in d)
-            //{
-            //    List<Calamity> c = new List<Calamity>();
-            //    c.Add(new Calamity { About = "Lots of fire", Date = DateTime.Now });
-            //    b.CalamitiesList = c;
-            //}
-
-            List<Device> d = DatabaseController.GetDevices();
-            foreach (Device b in d)
-            {
-                Console.WriteLine(b.Id + " - " + b.Name);
-                foreach (Calamity c in b.CalamitiesList)
-                {
-                    Console.WriteLine(c.Id + " - " + c.About);
-                }
-            }
-        }
-
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             DatabaseController.InitialSetup();
+        }
+
+        private void bt_AdministratorLogin_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow mw = new MainWindow();
+            mw.Show();
+            this.Close();
+        }
+
+        private void bt_ManagerLogin_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow mw = new MainWindow();
+            mw.Show();
+            this.Close();
         }
     }
 }

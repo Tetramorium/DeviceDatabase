@@ -12,11 +12,12 @@ namespace DeviceDatabase.Model
     public class Device
     {
         [Key]
-        public int Id { get; set; }
+        public int DeviceId { get; set; }
         public int TypeId { get; set; }
         public string Name { get; set; }
         public string SerialCode { get; set; }
-        public List<Calamity> CalamitiesList { get; set; }
         public int Status { get; set; }
+
+        public List<Calamity> CalamityCollection { get; set; }
     }
 }

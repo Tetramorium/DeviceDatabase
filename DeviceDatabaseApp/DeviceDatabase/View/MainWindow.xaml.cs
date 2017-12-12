@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DeviceDatabase.Controller;
+using DeviceDatabase.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +25,16 @@ namespace DeviceDatabase.View
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            this.dg_DevicesList.ItemsSource = DatabaseController.GetDevices();
+        }
+
+        private void AddCalamity(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine("Click!");
         }
     }
 }

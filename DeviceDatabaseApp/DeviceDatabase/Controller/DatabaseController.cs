@@ -19,21 +19,41 @@ namespace DeviceDatabase.Controller
 
                 using (DatabaseContext dc = new DatabaseContext())
                 {
+                    //dc.Database.ExecuteSqlCommand(
+                    //    "CREATE TABLE IF NOT EXISTS 'Device' " +
+                    //    "('DeviceId' INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    //    " 'Name' TEXT NOT NULL," +
+                    //    " 'TypeId' INTEGER," +
+                    //    " 'SerialCode' TEXT NOT NULL," +
+                    //    " 'Status' INTEGER," +
+                    //    " CONSTRAINT name_unique UNIQUE (Name, SerialCode))"
+                    //);
+
+                    //dc.Database.ExecuteSqlCommand(
+                    //    "CREATE TABLE IF NOT EXISTS 'Calamity' " +
+                    //    "('CalamityId' INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    //    " 'About' TEXT NOT NULL," +
+                    //    " 'Date' date," +
+                    //    "'DeviceId' REFERENCES Device(DeviceId) " +
+                    //    " ) "
+                    //);
                     dc.Database.ExecuteSqlCommand(
                         "CREATE TABLE IF NOT EXISTS 'Device' " +
-                        "('Id' INTEGER PRIMARY KEY AUTOINCREMENT," +
+                        "('DeviceId' INTEGER PRIMARY KEY AUTOINCREMENT," +
                         " 'Name' TEXT NOT NULL," +
                         " 'TypeId' INTEGER," +
                         " 'SerialCode' TEXT NOT NULL," +
                         " 'Status' INTEGER," +
                         " CONSTRAINT name_unique UNIQUE (Name, SerialCode))"
                     );
+
                     dc.Database.ExecuteSqlCommand(
                         "CREATE TABLE IF NOT EXISTS 'Calamity' " +
-                        "('Id' INTEGER PRIMARY KEY AUTOINCREMENT," +
+                        "('CalamityId' INTEGER PRIMARY KEY AUTOINCREMENT," +
+                        " 'DeviceId' Integer," +
                         " 'About' TEXT NOT NULL," +
                         " 'Date' date," +
-                        "'Device_Id' REFERENCES Devices(Id) " +
+                        "FOREIGN KEY (CalamityId) REFERENCES Device " +
                         " ) "
                     );
                     dc.SaveChanges();
@@ -50,11 +70,19 @@ namespace DeviceDatabase.Controller
             }
         }
 
-        public static List<Device>  GetDevices()
+        public static List<Device> GetDevices()
         {
             using (DatabaseContext dc = new DatabaseContext())
             {
-                return dc.Devices.ToList();
+                return dc.Devices.Include("CalamityCollection").ToList();
+            }
+        }
+
+        public static List<Calamity> GetCalamities()
+        {
+            using (DatabaseContext dc = new DatabaseContext())
+            {
+                return dc.Calamities.ToList();
             }
         }
 
@@ -66,7 +94,7 @@ namespace DeviceDatabase.Controller
 
                 if (d != null)
                 {
-                    d.CalamitiesList.Add(_Calamity);
+                    d.CalamityCollection.Add(_Calamity);
                     dc.Entry(d).State = EntityState.Modified;
                     dc.SaveChanges();
                 }

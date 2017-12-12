@@ -17,14 +17,5 @@ namespace DeviceDatabase.Controller
 
         public DbSet<Device> Devices { get; set; }
         public DbSet<Calamity> Calamities { get; set; }
-
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Device>().HasKey(d => d.Id);
-            modelBuilder.Entity<Calamity>()
-                .HasRequired(c => c.Device)
-                .WithMany(d => d.CalamitiesList)
-                .HasForeignKey(d => d.Id);
-        }
     }
 }

@@ -12,9 +12,10 @@ namespace DeviceDatabase.Model
     public class Calamity
     {
         [Key]
-        public int Id { get; set; }
+        public int CalamityId { get; set; }
         public string About { get; set; }
-        public Device Device { get; set; }
         public DateTime Date { get; set; }
+
+        public int DeviceId { get; set; }
     }
 }
