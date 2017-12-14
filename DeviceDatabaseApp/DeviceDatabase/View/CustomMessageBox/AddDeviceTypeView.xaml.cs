@@ -17,43 +17,38 @@ using System.Windows.Shapes;
 namespace DeviceDatabase.View.CustomMessageBox
 {
     /// <summary>
-    /// Interaction logic for AddDeviceView.xaml
+    /// Interaction logic for AddDeviceTypeView.xaml
     /// </summary>
-    public partial class AddDeviceView : Window
+    public partial class AddDeviceTypeView : Window
     {
         //http://www.wpf-tutorial.com/dialogs/creating-a-custom-input-dialog/
 
-        public Device NewDevice { get; set; }
+        public DeviceType NewDeviceType { get; set; }
 
-        public AddDeviceView(Window _Owner)
+        public AddDeviceTypeView(Window _Owner)
         {
             InitializeComponent();
 
             this.Owner = _Owner;
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            this.cb_DeviceTypes.ItemsSource = DatabaseController.GetDeviceTypes();
-            this.cb_DeviceTypes.DisplayMemberPath = "Name";
-        }
-
         private void bt_Accept_Click(object sender, RoutedEventArgs e)
         {
-            if (this.tb_DeviceName.Text.Trim() != "")
+            if (this.tb_DeviceTypeName.Text.Trim() != "")
             {
-                if (DatabaseController.CheckIfDeviceIsUnique(this.tb_DeviceName.Text))
+                if (DatabaseController.CheckIfDeviceTypeIsUnique(this.tb_DeviceTypeName.Text))
                 {
-                    DeviceType dt = (DeviceType)cb_DeviceTypes.SelectedItem;
-                    this.NewDevice = new Device(this.tb_DeviceName.Text, dt.DeviceTypeId, "1234asfw");
+                    this.NewDeviceType = new DeviceType(this.tb_DeviceTypeName.Text);
                     this.DialogResult = true;
-                } else
-                {
-                    MessageBox.Show("Device name is not unique!");
                 }
-            } else
+                else
+                {
+                    MessageBox.Show("Device type name is not unique!");
+                }
+            }
+            else
             {
-                MessageBox.Show("Device name is required!");
+                MessageBox.Show("Device type name is required!");
             }
         }
     }

@@ -19,6 +19,7 @@ namespace DeviceDatabase.Controller
 
                 using (DatabaseContext dc = new DatabaseContext())
                 {
+                    // SQL Command for creating table Device
                     dc.Database.ExecuteSqlCommand(
                         "CREATE TABLE IF NOT EXISTS 'Device' " +
                         "('DeviceId' INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -26,10 +27,11 @@ namespace DeviceDatabase.Controller
                         " 'DeviceTypeId' INTEGER," +
                         " 'SerialCode' TEXT NOT NULL," +
                         " 'Status' INTEGER," +
+                        "  FOREIGN KEY (DeviceId) REFERENCES Calamity " +
                         "  FOREIGN KEY (DeviceTypeId) REFERENCES DeviceType " +
                         "  CONSTRAINT name_unique UNIQUE (Name, SerialCode))"
                     );
-
+                    // SQL Command for creating table Calamity
                     dc.Database.ExecuteSqlCommand(
                         "CREATE TABLE IF NOT EXISTS 'Calamity' " +
                         "('CalamityId' INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -39,7 +41,7 @@ namespace DeviceDatabase.Controller
                         "  FOREIGN KEY (CalamityId) REFERENCES Device " +
                         " ) "
                     );
-
+                    // SQL Command for creating table DeviceType
                     dc.Database.ExecuteSqlCommand(
                         "CREATE TABLE IF NOT EXISTS 'DeviceType' " +
                         "('DeviceTypeId' INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -47,9 +49,11 @@ namespace DeviceDatabase.Controller
                         " 'Status' INTEGER," +
                         "  CONSTRAINT name_unique UNIQUE (Name))"
                     );
-
                     dc.SaveChanges();
                 }
+
+                // Next lines of code are initial test values for the database
+                // ToDo Should be removed before publishing to client :)
 
                 DeviceType dt_Server = new DeviceType("Server");
                 DeviceType dt_Display = new DeviceType("Display");
@@ -69,7 +73,7 @@ namespace DeviceDatabase.Controller
                 d_Server.CalamityCollection.Add(new Calamity("Many smokes", new DateTime(1997, 08, 31)));
 
                 d_Laptop.CalamityCollection.Add(new Calamity("Many smoke", new DateTime(1993, 07, 22)));
-                d_Laptop.CalamityCollection.Add(new Calamity("Many smokes", new DateTime(1997, 08, 31)));
+                d_Laptop.CalamityCollection.Add(new Calamity("Many smokes, Many fire, Much confusion, Many firemen", new DateTime(1997, 08, 31)));
 
                 AddDevice(d_Server);
                 AddDevice(d_Laptop);
@@ -83,6 +87,14 @@ namespace DeviceDatabase.Controller
             {
                 dc.Devices.Add(_Device);
                 dc.SaveChanges();
+            }
+        }
+
+        public static bool CheckIfDeviceIsUnique(string _Name)
+        {
+            using (DatabaseContext dc = new DatabaseContext())
+            {
+                return !dc.Devices.ToList().Exists(e => e.Name.ToLower() == _Name.ToLower());
             }
         }
 
@@ -106,7 +118,8 @@ namespace DeviceDatabase.Controller
         {
             using (DatabaseContext dc = new DatabaseContext())
             {
-                return dc.Calamities.ToList();
+                List<Calamity> d = dc.Calamities.Include("Device").ToList();
+                return dc.Calamities.Include("Device").ToList();
             }
         }
 
@@ -139,6 +152,30 @@ namespace DeviceDatabase.Controller
             using (DatabaseContext dc = new DatabaseContext())
             {
                 return dc.DeviceTypes.ToList();
+            }
+        }
+
+        public static bool CheckIfDeviceTypeIsUnique(string _Name)
+        {
+            using (DatabaseContext dc = new DatabaseContext())
+            {
+                return !dc.DeviceTypes.ToList().Exists(e => e.Name.ToLower() == _Name.ToLower());
+            }
+        }
+
+        public static List<DeviceType> SearchDeviceTypes(string str)
+        {
+                using (DatabaseContext dc = new DatabaseContext())
+                {
+                    return dc.DeviceTypes.Where(e => e.Name.ToLower().Contains(str.ToLower())).ToList();
+                }
+        }
+
+        public static List<Calamity> SearchCalamities(string str)
+        {
+            using (DatabaseContext dc = new DatabaseContext())
+            {
+                return dc.Calamities.Include("Device").Where(e => e.Device.Name.ToLower().Contains(str.ToLower())).ToList();
             }
         }
     }

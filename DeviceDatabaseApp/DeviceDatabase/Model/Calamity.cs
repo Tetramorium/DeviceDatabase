@@ -16,6 +16,7 @@ namespace DeviceDatabase.Model
         public string About { get; set; }
         public DateTime Date { get; set; }
 
+        public Device Device { get; set; }
         public int DeviceId { get; set; }
 
         public Calamity(string _About, DateTime _Date)

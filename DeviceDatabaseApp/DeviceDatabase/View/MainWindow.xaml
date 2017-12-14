@@ -5,40 +5,22 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DeviceDatabase"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525" Loaded="Window_Loaded">
+        Title="MainWindow" Height="350" Width="485" Loaded="Window_Loaded">
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="New">
                 <MenuItem Header="Device" Click="AddDevice"></MenuItem>
-                <MenuItem Header="Device Type"></MenuItem>
+                <MenuItem Header="Device Type" Click="AddDeviceType"></MenuItem>
             </MenuItem>
         </Menu>
         <TabControl>
             <TabItem x:Name="tb_Devices" Header="Devices" >
                 <Grid Background="#FFE5E5E5">
-                    <DataGrid IsReadOnly="True"  x:Name="dg_DevicesList" Margin="10,31,0,0" AutoGenerateColumns="False" CanUserResizeRows="False">
-                        <!--https://stackoverflow.com/a/29559436 WPF Datagrid disable selected row styles or row selecting-->
-                        <DataGrid.CellStyle>
-                            <Style TargetType="{x:Type DataGridCell}">
-                                <Style.Triggers>
-                                    <Trigger Property="DataGridCell.IsSelected" Value="True">
-                                        <Setter Property="BorderBrush">
-                                            <Setter.Value>
-                                                <SolidColorBrush Color="Transparent"/>
-                                            </Setter.Value>
-                                        </Setter>
-                                        <Setter Property="Foreground"
-                            Value="{DynamicResource
-                                   {x:Static SystemColors.ControlTextBrushKey}}"/>
-                                        <Setter Property="Background">
-                                            <Setter.Value>
-                                                <SolidColorBrush Color="Transparent"/>
-                                            </Setter.Value>
-                                        </Setter>
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </DataGrid.CellStyle>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="104*"/>
+                        <ColumnDefinition Width="367*"/>
+                    </Grid.ColumnDefinitions>
+                    <DataGrid IsReadOnly="True" x:Name="dg_DevicesList" Margin="0,31,0,0" AutoGenerateColumns="False" CanUserResizeRows="False" Grid.ColumnSpan="2">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
                             <DataGridTextColumn Header="Type" Binding="{Binding DeviceType.Name}" />
@@ -72,23 +54,85 @@
                             </DataGridTemplateColumn>
                         </DataGrid.Columns>
                     </DataGrid>
-                    <TextBox x:Name="tb_SearchDevice" HorizontalAlignment="Left" Height="23" Margin="381,3,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.5,0.5" TextChanged="tb_SearchDevice_TextChanged">
+                    <TextBox x:Name="tb_SearchDevice" HorizontalAlignment="Left" Height="23" Margin="243,3,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.5,0.5" TextChanged="tb_SearchDevice_TextChanged" Grid.Column="1">
                         <TextBox.Resources>
                             <Style TargetType="{x:Type Border}">
                                 <Setter Property="CornerRadius" Value="10"/>
                             </Style>
                         </TextBox.Resources>
                     </TextBox>
-                    <Label Content="Search Device" HorizontalAlignment="Left" Margin="297,0,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.026,-1.077"/>
+                    <Label Content="Search Device" HorizontalAlignment="Left" Margin="154,0,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.026,-1.077" Grid.Column="1"/>
                 </Grid>
             </TabItem>
             <TabItem x:Name="tb_DeviceTypes" Header="Device Types">
                 <Grid Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="35*"/>
+                        <ColumnDefinition Width="119*"/>
+                        <ColumnDefinition Width="317*"/>
+                    </Grid.ColumnDefinitions>
+                    <DataGrid IsReadOnly="True"  x:Name="dg_DeviceTypesList" Margin="0,31,0,0" AutoGenerateColumns="False" CanUserResizeRows="False" Grid.ColumnSpan="3">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
+                            <DataGridTemplateColumn Header="Delete">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Click="DeleteDeviceType" Content="Add"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Edit">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Click="EditDeviceType" Content="Add"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <TextBox x:Name="tb_SearchDeviceType" HorizontalAlignment="Left" Height="23" Margin="193,3,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.5,0.5" TextChanged="tb_SearchDeviceType_TextChanged" Grid.Column="2">
+                        <TextBox.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="10"/>
+                            </Style>
+                        </TextBox.Resources>
+                    </TextBox>
+                    <Label Content="Search Device Type" HorizontalAlignment="Left" Margin="81,0,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.026,-1.077" Grid.Column="2"/>
 
                 </Grid>
             </TabItem>
             <TabItem x:Name="tb_Calamities" Header="Calamities">
                 <Grid Background="#FFE5E5E5">
+                    <DataGrid IsReadOnly="True"  x:Name="dg_CalamityList" Margin="0,31,0,0" AutoGenerateColumns="False" CanUserResizeRows="False">
+                        <!--https://stackoverflow.com/a/29559436 WPF Datagrid disable selected row styles or row selecting-->
+                        <DataGrid.Columns>
+                            <DataGridTextColumn MaxWidth="100" Header="About" Binding="{Binding About}" />
+                            <DataGridTextColumn Header="Device Name" Binding="{Binding Device.Name}" />
+                            <DataGridTextColumn Header="Date" Binding="{Binding Date, StringFormat=dd/MM/yyyy}" />
+                            <DataGridTemplateColumn Header="Delete">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Click="DeleteDeviceType" Content="Add"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Edit">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Click="EditDeviceType" Content="Add"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <TextBox x:Name="tb_SearchCalamity" HorizontalAlignment="Left" Height="23" Margin="347,3,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.5,0.5" TextChanged="tb_SearchCalamity_TextChanged">
+                        <TextBox.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="10"/>
+                            </Style>
+                        </TextBox.Resources>
+                    </TextBox>
+                    <Label Content="Search Calamity" HorizontalAlignment="Left" Margin="248,0,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.026,-1.077"/>
 
                 </Grid>
             </TabItem>

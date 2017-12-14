@@ -1,0 +1,20 @@
+﻿<Window x:Class="DeviceDatabase.View.CustomMessageBox.AddDeviceTypeView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DeviceDatabase.View.CustomMessageBox"
+        mc:Ignorable="d"
+        Title="Add new Device Type" Height="104" Width="240" ResizeMode="NoResize" WindowStartupLocation="CenterOwner">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="41*"/>
+            <ColumnDefinition Width="32*"/>
+        </Grid.ColumnDefinitions>
+        <Label Content="Device Type:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="tb_DeviceTypeName" HorizontalAlignment="Left" Height="23" Margin="91,13,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="133" Grid.ColumnSpan="2"/>
+        <Button x:Name="bt_Cancel" Content="Cancel" HorizontalAlignment="Left" Margin="10,46,0,0" VerticalAlignment="Top" Width="75" IsCancel="True"/>
+        <Button x:Name="bt_Accept" Content="Accept" HorizontalAlignment="Left" Margin="18,46,0,0" VerticalAlignment="Top" Width="75" IsDefault="True" Grid.Column="1" Click="bt_Accept_Click"/>
+
+    </Grid>
+</Window>
