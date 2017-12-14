@@ -17,5 +17,6 @@ namespace DeviceDatabase.Controller
 
         public DbSet<Device> Devices { get; set; }
         public DbSet<Calamity> Calamities { get; set; }
+        public DbSet<DeviceType> DeviceTypes { get; set; }
     }
 }

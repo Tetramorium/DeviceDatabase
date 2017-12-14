@@ -19,32 +19,15 @@ namespace DeviceDatabase.Controller
 
                 using (DatabaseContext dc = new DatabaseContext())
                 {
-                    //dc.Database.ExecuteSqlCommand(
-                    //    "CREATE TABLE IF NOT EXISTS 'Device' " +
-                    //    "('DeviceId' INTEGER PRIMARY KEY AUTOINCREMENT," +
-                    //    " 'Name' TEXT NOT NULL," +
-                    //    " 'TypeId' INTEGER," +
-                    //    " 'SerialCode' TEXT NOT NULL," +
-                    //    " 'Status' INTEGER," +
-                    //    " CONSTRAINT name_unique UNIQUE (Name, SerialCode))"
-                    //);
-
-                    //dc.Database.ExecuteSqlCommand(
-                    //    "CREATE TABLE IF NOT EXISTS 'Calamity' " +
-                    //    "('CalamityId' INTEGER PRIMARY KEY AUTOINCREMENT," +
-                    //    " 'About' TEXT NOT NULL," +
-                    //    " 'Date' date," +
-                    //    "'DeviceId' REFERENCES Device(DeviceId) " +
-                    //    " ) "
-                    //);
                     dc.Database.ExecuteSqlCommand(
                         "CREATE TABLE IF NOT EXISTS 'Device' " +
                         "('DeviceId' INTEGER PRIMARY KEY AUTOINCREMENT," +
                         " 'Name' TEXT NOT NULL," +
-                        " 'TypeId' INTEGER," +
+                        " 'DeviceTypeId' INTEGER," +
                         " 'SerialCode' TEXT NOT NULL," +
                         " 'Status' INTEGER," +
-                        " CONSTRAINT name_unique UNIQUE (Name, SerialCode))"
+                        "  FOREIGN KEY (DeviceTypeId) REFERENCES DeviceType " +
+                        "  CONSTRAINT name_unique UNIQUE (Name, SerialCode))"
                     );
 
                     dc.Database.ExecuteSqlCommand(
@@ -53,11 +36,44 @@ namespace DeviceDatabase.Controller
                         " 'DeviceId' Integer," +
                         " 'About' TEXT NOT NULL," +
                         " 'Date' date," +
-                        "FOREIGN KEY (CalamityId) REFERENCES Device " +
+                        "  FOREIGN KEY (CalamityId) REFERENCES Device " +
                         " ) "
                     );
+
+                    dc.Database.ExecuteSqlCommand(
+                        "CREATE TABLE IF NOT EXISTS 'DeviceType' " +
+                        "('DeviceTypeId' INTEGER PRIMARY KEY AUTOINCREMENT," +
+                        " 'Name' TEXT NOT NULL," +
+                        " 'Status' INTEGER," +
+                        "  CONSTRAINT name_unique UNIQUE (Name))"
+                    );
+
                     dc.SaveChanges();
                 }
+
+                DeviceType dt_Server = new DeviceType("Server");
+                DeviceType dt_Display = new DeviceType("Display");
+                DeviceType dt_Workstation = new DeviceType("Workstation");
+
+                AddDeviceType(dt_Server);
+                AddDeviceType(dt_Display);
+                AddDeviceType(dt_Workstation);
+
+                List<DeviceType> DeviceTypes = GetDeviceTypes();
+
+                Device d_Server = new Device("Server_042", DeviceTypes.FirstOrDefault(e => e.Name == "Server").DeviceTypeId, "abc1123");
+                Device d_Laptop = new Device("Laptop_001", DeviceTypes.FirstOrDefault(e => e.Name == "Workstation").DeviceTypeId, "abc1234");
+                Device d_Beamer = new Device("Beamer_123", DeviceTypes.FirstOrDefault(e => e.Name == "Display").DeviceTypeId, "abc1236");
+
+                d_Server.CalamityCollection.Add(new Calamity("Many smoke", new DateTime(1992, 01, 24)));
+                d_Server.CalamityCollection.Add(new Calamity("Many smokes", new DateTime(1997, 08, 31)));
+
+                d_Laptop.CalamityCollection.Add(new Calamity("Many smoke", new DateTime(1993, 07, 22)));
+                d_Laptop.CalamityCollection.Add(new Calamity("Many smokes", new DateTime(1997, 08, 31)));
+
+                AddDevice(d_Server);
+                AddDevice(d_Laptop);
+                AddDevice(d_Beamer);
             }
         }
 
@@ -74,7 +90,15 @@ namespace DeviceDatabase.Controller
         {
             using (DatabaseContext dc = new DatabaseContext())
             {
-                return dc.Devices.Include("CalamityCollection").ToList();
+                return dc.Devices.Include("DeviceType").Include("CalamityCollection").ToList();
+            }
+        }
+
+        public static List<Device> SearchDevices(string str)
+        {
+            using (DatabaseContext dc = new DatabaseContext())
+            {
+                return dc.Devices.Include("CalamityCollection").Include("DeviceType").Where(e => e.Name.ToLower().Contains(str.ToLower())).ToList();
             }
         }
 
@@ -98,6 +122,23 @@ namespace DeviceDatabase.Controller
                     dc.Entry(d).State = EntityState.Modified;
                     dc.SaveChanges();
                 }
+            }
+        }
+
+        public static void AddDeviceType(DeviceType _DeviceType)
+        {
+            using (DatabaseContext dc = new DatabaseContext())
+            {
+                dc.DeviceTypes.Add(_DeviceType);
+                dc.SaveChanges();
+            }
+        }
+
+        public static List<DeviceType> GetDeviceTypes()
+        {
+            using (DatabaseContext dc = new DatabaseContext())
+            {
+                return dc.DeviceTypes.ToList();
             }
         }
     }

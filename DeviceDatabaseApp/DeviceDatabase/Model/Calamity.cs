@@ -17,5 +17,16 @@ namespace DeviceDatabase.Model
         public DateTime Date { get; set; }
 
         public int DeviceId { get; set; }
+
+        public Calamity(string _About, DateTime _Date)
+        {
+            this.About = _About;
+            this.Date = _Date;
+        }
+
+        public Calamity()
+        {
+
+        }
     }
 }

@@ -1,0 +1,18 @@
+﻿<Window x:Class="DeviceDatabase.View.CustomMessageBox.AddDeviceView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DeviceDatabase.View.CustomMessageBox"
+        mc:Ignorable="d"
+        Title="Add new Device" Height="148" Width="233" Loaded="Window_Loaded">
+    <Grid>
+        <Label Content="Device Name:" HorizontalAlignment="Left" Margin="0,10,0,0" VerticalAlignment="Top"/>
+        <Label Content="Device Type:" HorizontalAlignment="Left" Margin="0,44,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="tb_DeviceName" HorizontalAlignment="Left" Height="23" Margin="98,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="bt_Cancel" Content="Cancel" HorizontalAlignment="Left" Margin="10,92,0,0" VerticalAlignment="Top" Width="75" IsCancel="True"/>
+        <Button x:Name="bt_Accept" Content="Accept" HorizontalAlignment="Left" Margin="143,92,0,0" VerticalAlignment="Top" Width="75" Click="bt_Accept_Click"/>
+        <ComboBox x:Name="cb_DeviceTypes" HorizontalAlignment="Left" Margin="98,48,0,0" VerticalAlignment="Top" Width="120" SelectedIndex="1"/>
+
+    </Grid>
+</Window>
