@@ -5,11 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DeviceDatabase.View"
         mc:Ignorable="d"
-        Title="Select Role" Height="107.5" Width="248" Loaded="Window_Loaded">
+        Title="Select Role" Height="107.5" Width="248" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen">
     <Grid HorizontalAlignment="Left" Width="247" Height="68" VerticalAlignment="Top">
         <Button x:Name="bt_AdministratorLogin" Content="IT-Administrator" HorizontalAlignment="Left" Margin="10,34,0,0" VerticalAlignment="Top" Width="96" Click="bt_AdministratorLogin_Click"/>
         <Button x:Name="bt_ManagerLogin" Content="IT-Manager" HorizontalAlignment="Left" Margin="111,34,0,0" VerticalAlignment="Top" Width="96" Click="bt_ManagerLogin_Click"/>
         <TextBlock HorizontalAlignment="Left" Margin="33,10,0,0" TextWrapping="Wrap" Text="Choose which role you have:" VerticalAlignment="Top"/>
-
     </Grid>
 </Window>

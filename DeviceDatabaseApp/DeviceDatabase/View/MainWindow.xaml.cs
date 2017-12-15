@@ -33,14 +33,24 @@ namespace DeviceDatabase.View
             List<Device> d = DatabaseController.GetDevices();
 
             this.dg_DevicesList.ItemsSource = DatabaseController.GetDevices();
-            Update();
+            UpdateDeviceList();
             UpdateDeviceTypeList();
             UpdateCalamityList();
         }
 
         private void AddCalamity(object sender, RoutedEventArgs e)
         {
-            Console.WriteLine("Click!");
+
+            Device d = (Device)this.dg_DevicesList.SelectedItem;
+
+            AddCalamityView acv = new AddCalamityView(this, d.Name);
+
+            if (acv.ShowDialog() == true)
+            {
+                DatabaseController.AddCalamity(d.DeviceId, acv.NewCalamity);
+                UpdateDeviceList();
+                UpdateCalamityList();
+            }
         }
 
         private void DeleteDevice(object sender, RoutedEventArgs e)
@@ -60,7 +70,7 @@ namespace DeviceDatabase.View
             if (adv.ShowDialog() == true)
             {
                 DatabaseController.AddDevice(adv.NewDevice);
-                Update();
+                UpdateDeviceList();
             }
         }
 
@@ -71,16 +81,16 @@ namespace DeviceDatabase.View
             if (advt.ShowDialog() == true)
             {
                 DatabaseController.AddDeviceType(advt.NewDeviceType);
-                Update();
+                UpdateDeviceTypeList();
             }
         }
 
         private void tb_SearchDevice_TextChanged(object sender, TextChangedEventArgs e)
         {
-            Update();
+            UpdateDeviceList();
         }
 
-        private void Update()
+        private void UpdateDeviceList()
         {
             if (tb_SearchDevice.Text.Trim() != "")
             {

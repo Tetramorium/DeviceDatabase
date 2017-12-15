@@ -27,8 +27,8 @@ namespace DeviceDatabase.Controller
                         " 'DeviceTypeId' INTEGER," +
                         " 'SerialCode' TEXT NOT NULL," +
                         " 'Status' INTEGER," +
-                        "  FOREIGN KEY (DeviceId) REFERENCES Calamity " +
-                        "  FOREIGN KEY (DeviceTypeId) REFERENCES DeviceType " +
+                        "  FOREIGN KEY (DeviceId) REFERENCES Calamity, " +
+                        "  FOREIGN KEY (DeviceTypeId) REFERENCES DeviceType, " +
                         "  CONSTRAINT name_unique UNIQUE (Name, SerialCode))"
                     );
                     // SQL Command for creating table Calamity
@@ -55,29 +55,29 @@ namespace DeviceDatabase.Controller
                 // Next lines of code are initial test values for the database
                 // ToDo Should be removed before publishing to client :)
 
-                DeviceType dt_Server = new DeviceType("Server");
-                DeviceType dt_Display = new DeviceType("Display");
-                DeviceType dt_Workstation = new DeviceType("Workstation");
+                //DeviceType dt_Server = new DeviceType("Server");
+                //DeviceType dt_Display = new DeviceType("Display");
+                //DeviceType dt_Workstation = new DeviceType("Workstation");
 
-                AddDeviceType(dt_Server);
-                AddDeviceType(dt_Display);
-                AddDeviceType(dt_Workstation);
+                //AddDeviceType(dt_Server);
+                //AddDeviceType(dt_Display);
+                //AddDeviceType(dt_Workstation);
 
-                List<DeviceType> DeviceTypes = GetDeviceTypes();
+                //List<DeviceType> DeviceTypes = GetDeviceTypes();
 
-                Device d_Server = new Device("Server_042", DeviceTypes.FirstOrDefault(e => e.Name == "Server").DeviceTypeId, "abc1123");
-                Device d_Laptop = new Device("Laptop_001", DeviceTypes.FirstOrDefault(e => e.Name == "Workstation").DeviceTypeId, "abc1234");
-                Device d_Beamer = new Device("Beamer_123", DeviceTypes.FirstOrDefault(e => e.Name == "Display").DeviceTypeId, "abc1236");
+                //Device d_Server = new Device("Server_042", DeviceTypes.FirstOrDefault(e => e.Name == "Server").DeviceTypeId, "abc1123");
+                //Device d_Laptop = new Device("Laptop_001", DeviceTypes.FirstOrDefault(e => e.Name == "Workstation").DeviceTypeId, "abc1234");
+                //Device d_Beamer = new Device("Beamer_123", DeviceTypes.FirstOrDefault(e => e.Name == "Display").DeviceTypeId, "abc1236");
 
-                d_Server.CalamityCollection.Add(new Calamity("Many smoke", new DateTime(1992, 01, 24)));
-                d_Server.CalamityCollection.Add(new Calamity("Many smokes", new DateTime(1997, 08, 31)));
+                //d_Server.CalamityCollection.Add(new Calamity("Many smoke", new DateTime(1992, 01, 24)));
+                //d_Server.CalamityCollection.Add(new Calamity("Many smokes", new DateTime(1997, 08, 31)));
 
-                d_Laptop.CalamityCollection.Add(new Calamity("Many smoke", new DateTime(1993, 07, 22)));
-                d_Laptop.CalamityCollection.Add(new Calamity("Many smokes, Many fire, Much confusion, Many firemen", new DateTime(1997, 08, 31)));
+                //d_Laptop.CalamityCollection.Add(new Calamity("Many smoke", new DateTime(1993, 07, 22)));
+                //d_Laptop.CalamityCollection.Add(new Calamity("Many smokes, Many fire, Much confusion, Many firemen", new DateTime(1997, 08, 31)));
 
-                AddDevice(d_Server);
-                AddDevice(d_Laptop);
-                AddDevice(d_Beamer);
+                //AddDevice(d_Server);
+                //AddDevice(d_Laptop);
+                //AddDevice(d_Beamer);
             }
         }
 
@@ -127,8 +127,8 @@ namespace DeviceDatabase.Controller
         {
             using (DatabaseContext dc = new DatabaseContext())
             {
-                Device d = dc.Devices.Find(_DeviceId);
-
+                Device d = dc.Devices.Include("CalamityCollection").FirstOrDefault(e => e.DeviceId == _DeviceId);
+                
                 if (d != null)
                 {
                     d.CalamityCollection.Add(_Calamity);

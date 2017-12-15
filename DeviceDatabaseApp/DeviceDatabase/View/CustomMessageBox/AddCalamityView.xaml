@@ -1,0 +1,26 @@
+﻿<Window x:Class="DeviceDatabase.View.CustomMessageBox.AddCalamityView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DeviceDatabase.View.CustomMessageBox"
+        mc:Ignorable="d"
+        Title="Add calamity for Device Name" Height="233.193" Width="221.428" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" WindowStyle="ToolWindow">
+    <Grid RenderTransformOrigin="0.5,0.5">
+        <Grid.RenderTransform>
+            <TransformGroup>
+                <ScaleTransform/>
+                <SkewTransform/>
+                <RotateTransform Angle="-0.165"/>
+                <TranslateTransform/>
+            </TransformGroup>
+        </Grid.RenderTransform>
+        <Label HorizontalAlignment="Left" Margin="217,138,0,0" VerticalAlignment="Top"/>
+        <Label Content="Description" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="tb_About" HorizontalAlignment="Left" Height="107" Margin="10,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="197"/>
+        <DatePicker x:Name="dp_Date" HorizontalAlignment="Left" Margin="10,148,0,0" VerticalAlignment="Top" Width="197" FirstDayOfWeek="Monday" DisplayDate="2017-12-15" SelectedDateFormat="Long"/>
+        <Button x:Name="bt_Cancel" Content="Cancel" HorizontalAlignment="Left" Margin="10,177,0,0" VerticalAlignment="Top" Width="75" IsCancel="True"/>
+        <Button x:Name="bt_Accept" Content="Accept" HorizontalAlignment="Left" Margin="132,177,0,0" VerticalAlignment="Top" Width="75" Click="bt_Accept_Click"/>
+
+    </Grid>
+</Window>

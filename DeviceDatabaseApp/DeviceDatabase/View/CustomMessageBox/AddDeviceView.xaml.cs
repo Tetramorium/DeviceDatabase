@@ -34,26 +34,42 @@ namespace DeviceDatabase.View.CustomMessageBox
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            this.cb_DeviceTypes.ItemsSource = DatabaseController.GetDeviceTypes();
+            List<DeviceType> DeviceTypeList = DatabaseController.GetDeviceTypes();
+
+            if (DeviceTypeList.Count() == 0)
+            {
+                MessageBox.Show("There are no Device Types yet");
+                this.DialogResult = false;
+            }
+
+            this.cb_DeviceTypes.ItemsSource = DeviceTypeList;
             this.cb_DeviceTypes.DisplayMemberPath = "Name";
         }
 
         private void bt_Accept_Click(object sender, RoutedEventArgs e)
         {
-            if (this.tb_DeviceName.Text.Trim() != "")
+            if (this.cb_DeviceTypes.SelectedItem != null)
             {
-                if (DatabaseController.CheckIfDeviceIsUnique(this.tb_DeviceName.Text))
+                if (this.tb_DeviceName.Text.Trim() != "")
                 {
-                    DeviceType dt = (DeviceType)cb_DeviceTypes.SelectedItem;
-                    this.NewDevice = new Device(this.tb_DeviceName.Text, dt.DeviceTypeId, "1234asfw");
-                    this.DialogResult = true;
-                } else
+                    if (DatabaseController.CheckIfDeviceIsUnique(this.tb_DeviceName.Text))
+                    {
+                        DeviceType dt = (DeviceType)cb_DeviceTypes.SelectedItem;
+                        this.NewDevice = new Device(this.tb_DeviceName.Text, dt.DeviceTypeId, "1234asfw");
+                        this.DialogResult = true;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Device name is not unique!");
+                    }
+                }
+                else
                 {
-                    MessageBox.Show("Device name is not unique!");
+                    MessageBox.Show("Device name is required!");
                 }
             } else
             {
-                MessageBox.Show("Device name is required!");
+                MessageBox.Show("Device Type is required!");
             }
         }
     }

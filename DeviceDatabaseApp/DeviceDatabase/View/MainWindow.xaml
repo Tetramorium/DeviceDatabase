@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DeviceDatabase"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="485" Loaded="Window_Loaded">
+        Title="Database Device Calamities" Height="350" Width="485" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen">
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="New">
@@ -41,14 +41,14 @@
                             <DataGridTemplateColumn Header="Delete">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Button Click="DeleteDevice">Add</Button>
+                                        <Button Click="DeleteDevice">Delete</Button>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
                             <DataGridTemplateColumn Header="Edit">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Button Click="EditDevice">Add</Button>
+                                        <Button Click="EditDevice">Edit</Button>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
@@ -77,14 +77,14 @@
                             <DataGridTemplateColumn Header="Delete">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Button Click="DeleteDeviceType" Content="Add"/>
+                                        <Button Click="DeleteDeviceType" Content="Delete"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
                             <DataGridTemplateColumn Header="Edit">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Button Click="EditDeviceType" Content="Add"/>
+                                        <Button Click="EditDeviceType" Content="Edit"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
@@ -112,14 +112,14 @@
                             <DataGridTemplateColumn Header="Delete">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Button Click="DeleteDeviceType" Content="Add"/>
+                                        <Button Click="DeleteDeviceType" Content="Delete"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
                             <DataGridTemplateColumn Header="Edit">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Button Click="EditDeviceType" Content="Add"/>
+                                        <Button Click="EditDeviceType" Content="Edit"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
@@ -132,7 +132,7 @@
                             </Style>
                         </TextBox.Resources>
                     </TextBox>
-                    <Label Content="Search Calamity" HorizontalAlignment="Left" Margin="248,0,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.026,-1.077"/>
+                    <Label Content="Search Device" HorizontalAlignment="Left" Margin="258,0,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.026,-1.077"/>
 
                 </Grid>
             </TabItem>

@@ -75,6 +75,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="View\CustomMessageBox\AddCalamityView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\CustomMessageBox\AddDeviceTypeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -101,6 +105,9 @@
     <Compile Include="Model\Calamity.cs" />
     <Compile Include="Model\Device.cs" />
     <Compile Include="Model\DeviceType.cs" />
+    <Compile Include="View\CustomMessageBox\AddCalamityView.xaml.cs">
+      <DependentUpon>AddCalamityView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\CustomMessageBox\AddDeviceTypeView.xaml.cs">
       <DependentUpon>AddDeviceTypeView.xaml</DependentUpon>
     </Compile>
