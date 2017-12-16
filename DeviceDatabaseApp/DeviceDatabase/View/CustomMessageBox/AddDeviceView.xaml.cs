@@ -32,6 +32,19 @@ namespace DeviceDatabase.View.CustomMessageBox
             this.Owner = _Owner;
         }
 
+        public AddDeviceView(Window _Owner, Device _OldDevice)
+        {
+            InitializeComponent();
+
+            this.Owner = _Owner;
+
+            this.NewDevice = _OldDevice;
+            this.bt_Accept.Click -= bt_AcceptAdd_Click;
+            this.bt_Accept.Click += bt_AcceptEdit_Click;
+
+            this.tb_DeviceName.Text = _OldDevice.Name;
+        }
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             List<DeviceType> DeviceTypeList = DatabaseController.GetDeviceTypes();
@@ -44,32 +57,64 @@ namespace DeviceDatabase.View.CustomMessageBox
 
             this.cb_DeviceTypes.ItemsSource = DeviceTypeList;
             this.cb_DeviceTypes.DisplayMemberPath = "Name";
+
+            if (NewDevice != null)
+            {
+                this.cb_DeviceTypes.SelectedItem = NewDevice.DeviceType;
+            }
+
         }
 
-        private void bt_Accept_Click(object sender, RoutedEventArgs e)
+        private bool IsValid()
         {
             if (this.cb_DeviceTypes.SelectedItem != null)
             {
                 if (this.tb_DeviceName.Text.Trim() != "")
                 {
-                    if (DatabaseController.CheckIfDeviceIsUnique(this.tb_DeviceName.Text))
-                    {
-                        DeviceType dt = (DeviceType)cb_DeviceTypes.SelectedItem;
-                        this.NewDevice = new Device(this.tb_DeviceName.Text, dt.DeviceTypeId, "1234asfw");
-                        this.DialogResult = true;
-                    }
-                    else
-                    {
-                        MessageBox.Show("Device name is not unique!");
-                    }
+                    return true;
                 }
                 else
                 {
                     MessageBox.Show("Device name is required!");
                 }
-            } else
+            }
+            else
             {
                 MessageBox.Show("Device Type is required!");
+            }
+
+            return false;
+        }
+
+        private void bt_AcceptEdit_Click(object sender, RoutedEventArgs e)
+        {
+            if (IsValid())
+            {
+                DeviceType dt = (DeviceType)cb_DeviceTypes.SelectedItem;
+                // Set DeviceType to null to not cause duplicates
+                this.NewDevice.DeviceType = null;
+                // Set the foreign key
+                this.NewDevice.DeviceTypeId = dt.DeviceTypeId;
+                this.NewDevice.Name = this.tb_DeviceName.Text;
+                this.DialogResult = true;
+            }
+        }
+
+
+        private void bt_AcceptAdd_Click(object sender, RoutedEventArgs e)
+        {
+            if (IsValid())
+            {
+                if (DatabaseController.CheckIfDeviceIsUnique(this.tb_DeviceName.Text))
+                {
+                    DeviceType dt = (DeviceType)cb_DeviceTypes.SelectedItem;
+                    this.NewDevice = new Device(this.tb_DeviceName.Text, dt.DeviceTypeId, "1234asfw");
+                    this.DialogResult = true;
+                }
+                else
+                {
+                    MessageBox.Show("Device name is not unique!");
+                }
             }
         }
     }

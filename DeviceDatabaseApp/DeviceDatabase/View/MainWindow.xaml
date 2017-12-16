@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DeviceDatabase"
         mc:Ignorable="d"
-        Title="Database Device Calamities" Height="350" Width="485" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen">
+        Title="Database Device Calamities" Height="350" Width="495.784" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen">
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="New">
@@ -54,14 +54,14 @@
                             </DataGridTemplateColumn>
                         </DataGrid.Columns>
                     </DataGrid>
-                    <TextBox x:Name="tb_SearchDevice" HorizontalAlignment="Left" Height="23" Margin="243,3,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.5,0.5" TextChanged="tb_SearchDevice_TextChanged" Grid.Column="1">
+                    <TextBox x:Name="tb_SearchDevice" HorizontalAlignment="Left" Height="23" Margin="246,3,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.5,0.5" TextChanged="tb_SearchDevice_TextChanged" Grid.Column="1">
                         <TextBox.Resources>
                             <Style TargetType="{x:Type Border}">
                                 <Setter Property="CornerRadius" Value="10"/>
                             </Style>
                         </TextBox.Resources>
                     </TextBox>
-                    <Label Content="Search Device" HorizontalAlignment="Left" Margin="154,0,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.026,-1.077" Grid.Column="1"/>
+                    <Label Content="Search Device" HorizontalAlignment="Left" Margin="157,0,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.026,-1.077" Grid.Column="1"/>
                 </Grid>
             </TabItem>
             <TabItem x:Name="tb_DeviceTypes" Header="Device Types">
@@ -90,14 +90,14 @@
                             </DataGridTemplateColumn>
                         </DataGrid.Columns>
                     </DataGrid>
-                    <TextBox x:Name="tb_SearchDeviceType" HorizontalAlignment="Left" Height="23" Margin="193,3,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.5,0.5" TextChanged="tb_SearchDeviceType_TextChanged" Grid.Column="2">
+                    <TextBox x:Name="tb_SearchDeviceType" HorizontalAlignment="Left" Height="23" Margin="194,3,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.5,0.5" TextChanged="tb_SearchDeviceType_TextChanged" Grid.Column="2">
                         <TextBox.Resources>
                             <Style TargetType="{x:Type Border}">
                                 <Setter Property="CornerRadius" Value="10"/>
                             </Style>
                         </TextBox.Resources>
                     </TextBox>
-                    <Label Content="Search Device Type" HorizontalAlignment="Left" Margin="81,0,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.026,-1.077" Grid.Column="2"/>
+                    <Label Content="Search Device Type" HorizontalAlignment="Left" Margin="77,0,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.026,-1.077" Grid.Column="2"/>
 
                 </Grid>
             </TabItem>
@@ -125,14 +125,14 @@
                             </DataGridTemplateColumn>
                         </DataGrid.Columns>
                     </DataGrid>
-                    <TextBox x:Name="tb_SearchCalamity" HorizontalAlignment="Left" Height="23" Margin="347,3,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.5,0.5" TextChanged="tb_SearchCalamity_TextChanged">
+                    <TextBox x:Name="tb_SearchCalamity" HorizontalAlignment="Left" Height="23" Margin="352,3,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.5,0.5" TextChanged="tb_SearchCalamity_TextChanged">
                         <TextBox.Resources>
                             <Style TargetType="{x:Type Border}">
                                 <Setter Property="CornerRadius" Value="10"/>
                             </Style>
                         </TextBox.Resources>
                     </TextBox>
-                    <Label Content="Search Device" HorizontalAlignment="Left" Margin="258,0,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.026,-1.077"/>
+                    <Label Content="Search Device" HorizontalAlignment="Left" Margin="263,0,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.026,-1.077"/>
 
                 </Grid>
             </TabItem>

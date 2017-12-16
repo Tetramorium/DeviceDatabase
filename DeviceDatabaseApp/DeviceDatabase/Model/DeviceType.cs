@@ -26,5 +26,15 @@ namespace DeviceDatabase.Model
         {
 
         }
+
+        //https://rachel53461.wordpress.com/2011/08/20/comboboxs-selecteditem-not-displaying/
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null || !(obj is DeviceType))
+                return false;
+
+            return ((DeviceType)obj).DeviceTypeId == this.DeviceTypeId;
+        }
     }
 }

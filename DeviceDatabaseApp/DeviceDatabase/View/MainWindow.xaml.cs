@@ -40,7 +40,6 @@ namespace DeviceDatabase.View
 
         private void AddCalamity(object sender, RoutedEventArgs e)
         {
-
             Device d = (Device)this.dg_DevicesList.SelectedItem;
 
             AddCalamityView acv = new AddCalamityView(this, d.Name);
@@ -55,12 +54,14 @@ namespace DeviceDatabase.View
 
         private void DeleteDevice(object sender, RoutedEventArgs e)
         {
-            Console.WriteLine("Click!");
-        }
+            Device d = (Device)this.dg_DevicesList.SelectedItem;
 
-        private void EditDevice(object sender, RoutedEventArgs e)
-        {
-            Console.WriteLine("Click!");
+            if (MessageBox.Show(string.Format("Are you sure you want to delete {0}?", d.Name), string.Format("Deleting device {0}", d.Name), MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                DatabaseController.DeleteDevice(d.DeviceId);
+                UpdateDeviceList();
+                UpdateCalamityList();
+            }
         }
 
         private void AddDevice(object sender, RoutedEventArgs e)
@@ -71,6 +72,20 @@ namespace DeviceDatabase.View
             {
                 DatabaseController.AddDevice(adv.NewDevice);
                 UpdateDeviceList();
+            }
+        }
+
+        private void EditDevice(object sender, RoutedEventArgs e)
+        {
+            Device d = (Device)this.dg_DevicesList.SelectedItem;
+
+            AddDeviceView adv = new AddDeviceView(this, d);
+
+            if (adv.ShowDialog() == true)
+            {
+                DatabaseController.EditDevice(adv.NewDevice);
+                UpdateDeviceList();
+                UpdateCalamityList();
             }
         }
 

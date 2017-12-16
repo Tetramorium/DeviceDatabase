@@ -11,8 +11,8 @@
         <Label Content="Device Type:" HorizontalAlignment="Left" Margin="0,44,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="tb_DeviceName" HorizontalAlignment="Left" Height="23" Margin="98,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <Button x:Name="bt_Cancel" Content="Cancel" HorizontalAlignment="Left" Margin="10,87,0,0" VerticalAlignment="Top" Width="75" IsCancel="True"/>
-        <Button x:Name="bt_Accept" Content="Accept" HorizontalAlignment="Left" Margin="143,87,0,0" VerticalAlignment="Top" Width="75" Click="bt_Accept_Click"/>
-        <ComboBox x:Name="cb_DeviceTypes" HorizontalAlignment="Left" Margin="98,48,0,0" VerticalAlignment="Top" Width="120" SelectedIndex="1"/>
+        <Button x:Name="bt_Accept" Content="Accept" HorizontalAlignment="Left" Margin="143,87,0,0" VerticalAlignment="Top" Width="75" Click="bt_AcceptAdd_Click"/>
+        <ComboBox x:Name="cb_DeviceTypes" SelectedValuePath="Content" HorizontalAlignment="Left" Margin="98,48,0,0" VerticalAlignment="Top" Width="120" SelectedIndex="0"/>
 
     </Grid>
 </Window>
