@@ -37,6 +37,7 @@ namespace DeviceDatabase.View.CustomMessageBox
             InitializeComponent();
 
             this.Owner = _Owner;
+            this.Title = string.Format("Editing {0}", _OldDevice.Name);
 
             this.NewDevice = _OldDevice;
             this.bt_Accept.Click -= bt_AcceptAdd_Click;
@@ -58,7 +59,7 @@ namespace DeviceDatabase.View.CustomMessageBox
             this.cb_DeviceTypes.ItemsSource = DeviceTypeList;
             this.cb_DeviceTypes.DisplayMemberPath = "Name";
 
-            if (NewDevice != null)
+            if (NewDevice != null && NewDevice.DeviceType != null)
             {
                 this.cb_DeviceTypes.SelectedItem = NewDevice.DeviceType;
             }
@@ -71,7 +72,22 @@ namespace DeviceDatabase.View.CustomMessageBox
             {
                 if (this.tb_DeviceName.Text.Trim() != "")
                 {
-                    return true;
+
+                    if (this.NewDevice == null)
+                    {
+                        return IfAddEditValid();
+                    }
+                    else
+                    {
+                        if (NewDevice.Name.ToLower() == this.tb_DeviceName.Text)
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            return IfAddEditValid();
+                        }
+                    }
                 }
                 else
                 {
@@ -86,15 +102,28 @@ namespace DeviceDatabase.View.CustomMessageBox
             return false;
         }
 
+        private bool IfAddEditValid()
+        {
+            if (DatabaseController.CheckIfDeviceIsUnique(this.tb_DeviceName.Text))
+            {
+                return true;
+            }
+            else
+            {
+                MessageBox.Show("Device name is not unique!");
+            }
+            return false;
+        }
+
         private void bt_AcceptEdit_Click(object sender, RoutedEventArgs e)
         {
             if (IsValid())
             {
                 DeviceType dt = (DeviceType)cb_DeviceTypes.SelectedItem;
                 // Set DeviceType to null to not cause duplicates
-                this.NewDevice.DeviceType = null;
+                this.NewDevice.DeviceType = dt;
                 // Set the foreign key
-                this.NewDevice.DeviceTypeId = dt.DeviceTypeId;
+                //this.NewDevice.DeviceTypeId = dt.DeviceTypeId;
                 this.NewDevice.Name = this.tb_DeviceName.Text;
                 this.DialogResult = true;
             }
@@ -105,16 +134,9 @@ namespace DeviceDatabase.View.CustomMessageBox
         {
             if (IsValid())
             {
-                if (DatabaseController.CheckIfDeviceIsUnique(this.tb_DeviceName.Text))
-                {
-                    DeviceType dt = (DeviceType)cb_DeviceTypes.SelectedItem;
-                    this.NewDevice = new Device(this.tb_DeviceName.Text, dt.DeviceTypeId, "1234asfw");
-                    this.DialogResult = true;
-                }
-                else
-                {
-                    MessageBox.Show("Device name is not unique!");
-                }
+                DeviceType dt = (DeviceType)cb_DeviceTypes.SelectedItem;
+                this.NewDevice = new Device(this.tb_DeviceName.Text, dt.DeviceTypeId, "1234asfw");
+                this.DialogResult = true;
             }
         }
     }

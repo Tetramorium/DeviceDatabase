@@ -148,17 +148,58 @@ namespace DeviceDatabase.View
 
         private void DeleteDeviceType(object sender, RoutedEventArgs e)
         {
-            Console.WriteLine("Click!");
+            DeviceType d = (DeviceType)this.dg_DeviceTypesList.SelectedItem;
+
+            if (MessageBox.Show(string.Format("Are you sure you want to delete {0}?", d.Name), string.Format("Deleting device {0}", d.Name), MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                DatabaseController.DeleteDeviceType(d.DeviceTypeId);
+                UpdateDeviceList();
+                UpdateDeviceTypeList();
+            }
         }
 
         private void EditDeviceType(object sender, RoutedEventArgs e)
         {
-            Console.WriteLine("Click!");
+            DeviceType d = (DeviceType)this.dg_DeviceTypesList.SelectedItem;
+
+            AddDeviceTypeView adt = new AddDeviceTypeView(this, d);
+
+            if (adt.ShowDialog() == true)
+            {
+                DatabaseController.EditDeviceType(adt.NewDeviceType);
+                UpdateDeviceList();
+                UpdateDeviceTypeList();
+            }
+        }
+
+        private void EditCalamity(object sender, RoutedEventArgs e)
+        {
+            Calamity d = (Calamity)this.dg_CalamityList.SelectedItem;
+
+            AddCalamityView acv = new AddCalamityView(this, d);
+
+            if (acv.ShowDialog() == true)
+            {
+                DatabaseController.EditCalamity(acv.NewCalamity);
+                UpdateDeviceList();
+                UpdateCalamityList();
+            }
+        }
+        private void DeleteCalamity(object sender, RoutedEventArgs e)
+        {
+            Calamity c = (Calamity)this.dg_CalamityList.SelectedItem;
+
+            if (MessageBox.Show(string.Format("Are you sure you want to delete calamity from {0}?", c.Device.Name), string.Format("Deleting calamity {0}", c.About), MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                DatabaseController.DeleteCalamity(c.CalamityId);
+                UpdateCalamityList();
+                UpdateDeviceList();
+            }
         }
 
         private void tb_SearchCalamity_TextChanged(object sender, TextChangedEventArgs e)
         {
-
+            UpdateCalamityList();
         }
     }
 }

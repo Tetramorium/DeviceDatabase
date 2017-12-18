@@ -17,9 +17,12 @@ namespace DeviceDatabase.Model
         public string SerialCode { get; set; }
         public int Status { get; set; }
 
-        public int DeviceTypeId { get; set; }
+        // For a 0-to-many relationship in Entity Framework, have the foreign key be nullable. => ?
+        public virtual int? DeviceTypeId { get; set; }
+
         public DeviceType DeviceType { get; set; }
-        public List<Calamity> CalamityCollection { get; set; }
+
+        public virtual List<Calamity> CalamityCollection { get; set; }
 
         public Device(string _Name, int _DeviceTypeId, string _SerialCode)
         {

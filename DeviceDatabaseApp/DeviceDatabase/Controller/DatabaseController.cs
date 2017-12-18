@@ -19,6 +19,9 @@ namespace DeviceDatabase.Controller
 
                 using (DatabaseContext dc = new DatabaseContext())
                 {
+
+                    //https://sqlite.org/foreignkeys.html
+
                     // SQL Command for creating table Device
                     dc.Database.ExecuteSqlCommand(
                         "CREATE TABLE IF NOT EXISTS 'Device' " +
@@ -27,9 +30,9 @@ namespace DeviceDatabase.Controller
                         " 'DeviceTypeId' INTEGER," +
                         " 'SerialCode' TEXT NOT NULL," +
                         " 'Status' INTEGER," +
-                        "  FOREIGN KEY (DeviceId) REFERENCES Calamity, " +
-                    //"  FOREIGN KEY (DeviceTypeId) REFERENCES DeviceType)"
-                        "  FOREIGN KEY (DeviceTypeId) REFERENCES DeviceType, " +
+                        "  FOREIGN KEY (DeviceId) REFERENCES Calamity ON DELETE CASCADE, " +
+                        // https://www.techonthenet.com/sqlite/foreign_keys/foreign_null.php
+                        "  FOREIGN KEY (DeviceTypeId) REFERENCES DeviceType ON DELETE SET NULL, " +
                         "  CONSTRAINT name_unique UNIQUE (Name, SerialCode))"
                     );
                     // SQL Command for creating table Calamity
@@ -39,7 +42,7 @@ namespace DeviceDatabase.Controller
                         " 'DeviceId' Integer," +
                         " 'About' TEXT NOT NULL," +
                         " 'Date' date," +
-                        "  FOREIGN KEY (CalamityId) REFERENCES Device " +
+                        "  FOREIGN KEY (CalamityId) REFERENCES Device ON DELETE CASCADE" +
                         " ) "
                     );
                     // SQL Command for creating table DeviceType
@@ -47,7 +50,6 @@ namespace DeviceDatabase.Controller
                         "CREATE TABLE IF NOT EXISTS 'DeviceType' " +
                         "('DeviceTypeId' INTEGER PRIMARY KEY AUTOINCREMENT," +
                         " 'Name' TEXT NOT NULL," +
-                        //" 'Status' INTEGER)"
                         " 'Status' INTEGER," +
                         "  CONSTRAINT name_unique UNIQUE (Name))"
                     );
@@ -108,8 +110,18 @@ namespace DeviceDatabase.Controller
             {
                 Device d = dc.Devices.Find(_NewDevice.DeviceId);
                 d.Name = _NewDevice.Name;
-                d.DeviceTypeId = _NewDevice.DeviceTypeId;
+                d.DeviceType = dc.DeviceTypes.Find(_NewDevice.DeviceType.DeviceTypeId);
                 dc.Entry(d).State = EntityState.Modified;
+                dc.SaveChanges();
+            }
+        }
+
+        public static void DeleteDeviceType(int _DeviceTypeId)
+        {
+            using (DatabaseContext dc = new DatabaseContext())
+            {
+                DeviceType d = dc.DeviceTypes.Find(_DeviceTypeId);
+                dc.Entry(d).State = EntityState.Deleted;
                 dc.SaveChanges();
             }
         }
@@ -152,13 +164,35 @@ namespace DeviceDatabase.Controller
             using (DatabaseContext dc = new DatabaseContext())
             {
                 Device d = dc.Devices.Include("CalamityCollection").FirstOrDefault(e => e.DeviceId == _DeviceId);
-                
+
                 if (d != null)
                 {
                     d.CalamityCollection.Add(_Calamity);
                     dc.Entry(d).State = EntityState.Modified;
                     dc.SaveChanges();
                 }
+            }
+        }
+
+        public static void DeleteCalamity(int _CalamityId)
+        {
+            using (DatabaseContext dc = new DatabaseContext())
+            {
+                Calamity d = dc.Calamities.Find(_CalamityId);
+                dc.Entry(d).State = EntityState.Deleted;
+                dc.SaveChanges();
+            }
+        }
+
+        public static void EditCalamity(Calamity _EditedCalamity)
+        {
+            using (DatabaseContext dc = new DatabaseContext())
+            {
+                Calamity d = dc.Calamities.Find(_EditedCalamity.CalamityId);
+                d.About = _EditedCalamity.About;
+                d.Date = _EditedCalamity.Date;
+                dc.Entry(d).State = EntityState.Modified;
+                dc.SaveChanges();
             }
         }
 
@@ -179,6 +213,17 @@ namespace DeviceDatabase.Controller
             }
         }
 
+        public static void EditDeviceType(DeviceType _EditedDeviceType)
+        {
+            using (DatabaseContext dc = new DatabaseContext())
+            {
+                DeviceType d = dc.DeviceTypes.Find(_EditedDeviceType.DeviceTypeId);
+                d.Name = _EditedDeviceType.Name;
+                dc.Entry(d).State = EntityState.Modified;
+                dc.SaveChanges();
+            }
+        }
+
         public static bool CheckIfDeviceTypeIsUnique(string _Name)
         {
             using (DatabaseContext dc = new DatabaseContext())
@@ -189,10 +234,10 @@ namespace DeviceDatabase.Controller
 
         public static List<DeviceType> SearchDeviceTypes(string str)
         {
-                using (DatabaseContext dc = new DatabaseContext())
-                {
-                    return dc.DeviceTypes.Where(e => e.Name.ToLower().Contains(str.ToLower())).ToList();
-                }
+            using (DatabaseContext dc = new DatabaseContext())
+            {
+                return dc.DeviceTypes.Where(e => e.Name.ToLower().Contains(str.ToLower())).ToList();
+            }
         }
 
         public static List<Calamity> SearchCalamities(string str)

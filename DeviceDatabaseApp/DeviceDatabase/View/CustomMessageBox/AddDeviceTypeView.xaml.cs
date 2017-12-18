@@ -32,23 +32,76 @@ namespace DeviceDatabase.View.CustomMessageBox
             this.Owner = _Owner;
         }
 
-        private void bt_Accept_Click(object sender, RoutedEventArgs e)
+        public AddDeviceTypeView(Window _Owner, DeviceType _OldDeviceType)
+        {
+            InitializeComponent();
+
+            this.Owner = _Owner;
+
+            this.NewDeviceType = _OldDeviceType;
+            this.bt_Accept.Click -= bt_AcceptAdd_Click;
+            this.bt_Accept.Click += bt_AcceptEdit_Click;
+
+            this.tb_DeviceTypeName.Text = _OldDeviceType.Name;
+        }
+
+        private bool IsValid()
         {
             if (this.tb_DeviceTypeName.Text.Trim() != "")
             {
-                if (DatabaseController.CheckIfDeviceTypeIsUnique(this.tb_DeviceTypeName.Text))
+
+                if (this.NewDeviceType == null)
                 {
-                    this.NewDeviceType = new DeviceType(this.tb_DeviceTypeName.Text);
-                    this.DialogResult = true;
+                    return IfAddEditValid();
                 }
                 else
                 {
-                    MessageBox.Show("Device type name is not unique!");
+                    if (this.NewDeviceType.Name.ToLower() == this.tb_DeviceTypeName.Text.ToLower())
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return IfAddEditValid();
+                    }
                 }
             }
             else
             {
                 MessageBox.Show("Device type name is required!");
+            }
+
+            return false;
+        }
+
+        private bool IfAddEditValid()
+        {
+            if (DatabaseController.CheckIfDeviceTypeIsUnique(this.tb_DeviceTypeName.Text))
+            {
+                return true;
+            }
+            else
+            {
+                MessageBox.Show("Device type name is not unique!");
+            }
+            return false;
+        }
+
+        private void bt_AcceptAdd_Click(object sender, RoutedEventArgs e)
+        {
+            if (IsValid())
+            {
+                this.NewDeviceType = new DeviceType(this.tb_DeviceTypeName.Text);
+                this.DialogResult = true;
+            }
+        }
+
+        private void bt_AcceptEdit_Click(object sender, RoutedEventArgs e)
+        {
+            if (IsValid())
+            {
+                this.NewDeviceType.Name = this.tb_DeviceTypeName.Text;
+                this.DialogResult = true;
             }
         }
     }

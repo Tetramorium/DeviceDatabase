@@ -31,13 +31,41 @@ namespace DeviceDatabase.View.CustomMessageBox
             this.Title = String.Format("Add calamity for {0}", _DeviceName);
         }
 
-        private void bt_Accept_Click(object sender, RoutedEventArgs e)
+        public AddCalamityView(Window _Owner, Calamity _OldCalamity)
+        {
+            InitializeComponent();
+
+            this.Owner = _Owner;
+
+            this.NewCalamity = _OldCalamity;
+            this.bt_Accept.Click -= bt_AcceptAdd_Click;
+            this.bt_Accept.Click += bt_AcceptEdit_Click;
+
+            this.tb_About.Text = _OldCalamity.About;
+            this.dp_Date.SelectedDate = _OldCalamity.Date;
+        }
+
+        private void bt_AcceptAdd_Click(object sender, RoutedEventArgs e)
         {
             if(this.dp_Date.SelectedDate != null)
             {
-                NewCalamity = new Calamity(this.tb_About.Text, this.dp_Date.SelectedDate.Value);
+                this.NewCalamity = new Calamity(this.tb_About.Text, this.dp_Date.SelectedDate.Value);
                 this.DialogResult = true;
             } else
+            {
+                MessageBox.Show("Select a valid date");
+            }
+        }
+
+        private void bt_AcceptEdit_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.dp_Date.SelectedDate != null)
+            {
+                this.NewCalamity.About = this.tb_About.Text;
+                this.NewCalamity.Date = this.dp_Date.SelectedDate.Value;
+                this.DialogResult = true;
+            }
+            else
             {
                 MessageBox.Show("Select a valid date");
             }
