@@ -79,7 +79,7 @@ namespace DeviceDatabase.View.CustomMessageBox
                     }
                     else
                     {
-                        if (NewDevice.Name.ToLower() == this.tb_DeviceName.Text)
+                        if (NewDevice.Name.ToLower() == this.tb_DeviceName.Text.ToLower())
                         {
                             return true;
                         }
