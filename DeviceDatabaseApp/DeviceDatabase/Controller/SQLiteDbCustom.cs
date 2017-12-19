@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 namespace DeviceDatabase.Controller
 {
 
-    //https://stackoverflow.com/questions/43615926/ef6-sqlite-wont-work-without-app-confg/43688403#43688403
+    //https://stackoverflow.com/a/43688403
     //https://stackoverflow.com/questions/41977047/sqlite-with-entity-framework-6-no-such-table
 
     public class SQLiteProviderInvariantName : IProviderInvariantName
