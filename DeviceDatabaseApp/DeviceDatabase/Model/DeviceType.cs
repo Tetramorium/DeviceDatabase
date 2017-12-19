@@ -14,12 +14,10 @@ namespace DeviceDatabase.Model
         [Key]
         public int DeviceTypeId { get; set; }
         public string Name { get; set; }
-        public int Status { get; set; }
 
         public DeviceType(string _Name)
         {
             this.Name = _Name;
-            this.Status = 0;
         }
 
         public DeviceType()

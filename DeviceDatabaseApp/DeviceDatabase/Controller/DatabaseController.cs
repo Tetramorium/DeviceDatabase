@@ -29,7 +29,6 @@ namespace DeviceDatabase.Controller
                         " 'Name' TEXT NOT NULL," +
                         " 'DeviceTypeId' INTEGER," +
                         " 'SerialCode' TEXT NOT NULL," +
-                        " 'Status' INTEGER," +
                         "  FOREIGN KEY (DeviceId) REFERENCES Calamity ON DELETE CASCADE, " +
                         // https://www.techonthenet.com/sqlite/foreign_keys/foreign_null.php
                         "  FOREIGN KEY (DeviceTypeId) REFERENCES DeviceType ON DELETE SET NULL, " +
@@ -50,7 +49,6 @@ namespace DeviceDatabase.Controller
                         "CREATE TABLE IF NOT EXISTS 'DeviceType' " +
                         "('DeviceTypeId' INTEGER PRIMARY KEY AUTOINCREMENT," +
                         " 'Name' TEXT NOT NULL," +
-                        " 'Status' INTEGER," +
                         "  CONSTRAINT name_unique UNIQUE (Name))"
                     );
                     dc.SaveChanges();

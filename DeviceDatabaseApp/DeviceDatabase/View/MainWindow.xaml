@@ -132,8 +132,8 @@
             <TabItem x:Name="tb_Calamities" Header="Calamities">
                 <Grid Background="#FFE5E5E5">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="43*"/>
-                        <ColumnDefinition Width="198*"/>
+                        <ColumnDefinition Width="104*"/>
+                        <ColumnDefinition Width="367*"/>
                     </Grid.ColumnDefinitions>
                     <DataGrid IsReadOnly="True"  x:Name="dg_CalamityList" Margin="0,31,0,0" AutoGenerateColumns="False" CanUserResizeRows="False" Grid.ColumnSpan="2">
                         <!--https://stackoverflow.com/a/29559436 WPF Datagrid disable selected row styles or row selecting-->
@@ -167,14 +167,14 @@
                             </DataGridTemplateColumn>
                         </DataGrid.Columns>
                     </DataGrid>
-                    <TextBox x:Name="tb_SearchCalamity" HorizontalAlignment="Left" Height="23" Margin="265.863,3,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.5,0.5" TextChanged="tb_SearchCalamity_TextChanged" Padding="6,0,0,0" Grid.Column="1">
+                    <TextBox x:Name="tb_SearchCalamity" HorizontalAlignment="Left" Height="23" Margin="246,3,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.5,0.5" TextChanged="tb_SearchCalamity_TextChanged" Padding="6,0,0,0" Grid.Column="1">
                         <TextBox.Resources>
                             <Style TargetType="{x:Type Border}">
                                 <Setter Property="CornerRadius" Value="10"/>
                             </Style>
                         </TextBox.Resources>
                     </TextBox>
-                    <Label Content="Search Device" HorizontalAlignment="Left" Margin="176.863,0,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.026,-1.077" Grid.Column="1"/>
+                    <Label Content="Search Device" HorizontalAlignment="Left" Margin="157,0,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.026,-1.077" Grid.Column="1"/>
 
                 </Grid>
             </TabItem>
