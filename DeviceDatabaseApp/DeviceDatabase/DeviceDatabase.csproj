@@ -101,6 +101,7 @@
     </Compile>
     <Compile Include="Controller\DatabaseContext.cs" />
     <Compile Include="Controller\DatabaseController.cs" />
+    <Compile Include="Controller\SerialCodeController.cs" />
     <Compile Include="Controller\SQLiteDbCustom.cs" />
     <Compile Include="Model\Calamity.cs" />
     <Compile Include="Model\Device.cs" />

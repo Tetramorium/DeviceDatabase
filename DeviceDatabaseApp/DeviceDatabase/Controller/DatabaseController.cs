@@ -67,9 +67,9 @@ namespace DeviceDatabase.Controller
 
                 List<DeviceType> DeviceTypes = GetDeviceTypes();
 
-                Device d_Server = new Device("Server_042", DeviceTypes.FirstOrDefault(e => e.Name == "Server").DeviceTypeId, "abc1123");
-                Device d_Laptop = new Device("Laptop_001", DeviceTypes.FirstOrDefault(e => e.Name == "Workstation").DeviceTypeId, "abc1234");
-                Device d_Beamer = new Device("Beamer_123", DeviceTypes.FirstOrDefault(e => e.Name == "Display").DeviceTypeId, "abc1236");
+                Device d_Server = new Device("Server_042", DeviceTypes.FirstOrDefault(e => e.Name == "Server").DeviceTypeId);
+                Device d_Laptop = new Device("Laptop_001", DeviceTypes.FirstOrDefault(e => e.Name == "Workstation").DeviceTypeId);
+                Device d_Beamer = new Device("Beamer_123", DeviceTypes.FirstOrDefault(e => e.Name == "Display").DeviceTypeId);
 
                 AddDevice(d_Server);
                 AddDevice(d_Laptop);
@@ -243,6 +243,14 @@ namespace DeviceDatabase.Controller
             using (DatabaseContext dc = new DatabaseContext())
             {
                 return dc.Calamities.Include("Device").Where(e => e.Device.Name.ToLower().Contains(str.ToLower())).ToList();
+            }
+        }
+
+        public static bool CheckIfSerialCodeIsUnique(string str)
+        {
+            using (DatabaseContext dc = new DatabaseContext())
+            {
+                 return dc.Devices.FirstOrDefault(e => e.SerialCode == str) == null;
             }
         }
     }

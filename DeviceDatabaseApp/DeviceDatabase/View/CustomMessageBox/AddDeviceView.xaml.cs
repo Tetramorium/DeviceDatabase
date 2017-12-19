@@ -135,7 +135,7 @@ namespace DeviceDatabase.View.CustomMessageBox
             if (IsValid())
             {
                 DeviceType dt = (DeviceType)cb_DeviceTypes.SelectedItem;
-                this.NewDevice = new Device(this.tb_DeviceName.Text, dt.DeviceTypeId, "1234asfw");
+                this.NewDevice = new Device(this.tb_DeviceName.Text, dt.DeviceTypeId);
                 this.DialogResult = true;
             }
         }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DeviceDatabase.Controller;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -23,13 +24,11 @@ namespace DeviceDatabase.Model
 
         public virtual List<Calamity> CalamityCollection { get; set; }
 
-        public Device(string _Name, int _DeviceTypeId, string _SerialCode)
+        public Device(string _Name, int _DeviceTypeId)
         {
             this.Name = _Name;
-            this.SerialCode = _SerialCode;
-
+            this.SerialCode = SerialCodeController.GenerateRandomSerialCode();
             this.DeviceTypeId = _DeviceTypeId;
-
             this.CalamityCollection = new List<Calamity>();
         }
 
