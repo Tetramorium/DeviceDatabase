@@ -129,7 +129,6 @@ namespace DeviceDatabase.View.CustomMessageBox
             }
         }
 
-
         private void bt_AcceptAdd_Click(object sender, RoutedEventArgs e)
         {
             if (IsValid())

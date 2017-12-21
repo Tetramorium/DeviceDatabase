@@ -38,9 +38,10 @@ namespace DeviceDatabase.Controller
                     dc.Database.ExecuteSqlCommand(
                         "CREATE TABLE IF NOT EXISTS 'Calamity' " +
                         "('CalamityId' INTEGER PRIMARY KEY AUTOINCREMENT," +
-                        " 'DeviceId' Integer," +
+                        " 'DeviceId' INTEGER," +
                         " 'About' TEXT NOT NULL," +
-                        " 'Date' date," +
+                        " 'Date' DATE NOT NULL," +
+                        " 'IsSolved' INTEGER, " +
                         "  FOREIGN KEY (CalamityId) REFERENCES Device ON DELETE CASCADE" +
                         " ) "
                     );
@@ -189,6 +190,7 @@ namespace DeviceDatabase.Controller
                 Calamity d = dc.Calamities.Find(_EditedCalamity.CalamityId);
                 d.About = _EditedCalamity.About;
                 d.Date = _EditedCalamity.Date;
+                d.IsSolved = _EditedCalamity.IsSolved;
                 dc.Entry(d).State = EntityState.Modified;
                 dc.SaveChanges();
             }

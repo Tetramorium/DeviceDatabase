@@ -16,6 +16,8 @@ namespace DeviceDatabase.Model
         public string About { get; set; }
         public DateTime Date { get; set; }
 
+        public bool IsSolved { get; set; }
+
         public virtual Device Device { get; set; }
         public virtual int DeviceId { get; set; }
 

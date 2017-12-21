@@ -33,9 +33,10 @@ namespace DeviceDatabase.View
             List<Device> d = DatabaseController.GetDevices();
 
             this.dg_DevicesList.ItemsSource = DatabaseController.GetDevices();
-            UpdateDeviceList();
-            UpdateDeviceTypeList();
-            UpdateCalamityList();
+
+            UpdateDeviceListView();
+            UpdateDeviceTypeListView();
+            UpdateCalamityListView();
         }
 
         private void AddCalamity(object sender, RoutedEventArgs e)
@@ -47,8 +48,8 @@ namespace DeviceDatabase.View
             if (acv.ShowDialog() == true)
             {
                 DatabaseController.AddCalamity(d.DeviceId, acv.NewCalamity);
-                UpdateDeviceList();
-                UpdateCalamityList();
+                UpdateDeviceListView();
+                UpdateCalamityListView();
             }
         }
 
@@ -59,8 +60,8 @@ namespace DeviceDatabase.View
             if (MessageBox.Show(string.Format("Are you sure you want to delete {0}?", d.Name), string.Format("Deleting device {0}", d.Name), MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
                 DatabaseController.DeleteDevice(d.DeviceId);
-                UpdateDeviceList();
-                UpdateCalamityList();
+                UpdateDeviceListView();
+                UpdateCalamityListView();
             }
         }
 
@@ -71,7 +72,7 @@ namespace DeviceDatabase.View
             if (adv.ShowDialog() == true)
             {
                 DatabaseController.AddDevice(adv.NewDevice);
-                UpdateDeviceList();
+                UpdateDeviceListView();
             }
         }
 
@@ -84,8 +85,8 @@ namespace DeviceDatabase.View
             if (adv.ShowDialog() == true)
             {
                 DatabaseController.EditDevice(adv.NewDevice);
-                UpdateDeviceList();
-                UpdateCalamityList();
+                UpdateDeviceListView();
+                UpdateCalamityListView();
             }
         }
 
@@ -96,16 +97,16 @@ namespace DeviceDatabase.View
             if (advt.ShowDialog() == true)
             {
                 DatabaseController.AddDeviceType(advt.NewDeviceType);
-                UpdateDeviceTypeList();
+                UpdateDeviceTypeListView();
             }
         }
 
         private void tb_SearchDevice_TextChanged(object sender, TextChangedEventArgs e)
         {
-            UpdateDeviceList();
+            UpdateDeviceListView();
         }
 
-        private void UpdateDeviceList()
+        private void UpdateDeviceListView()
         {
             if (tb_SearchDevice.Text.Trim() != "")
             {
@@ -119,10 +120,10 @@ namespace DeviceDatabase.View
 
         private void tb_SearchDeviceType_TextChanged(object sender, TextChangedEventArgs e)
         {
-            UpdateDeviceTypeList();
+            UpdateDeviceTypeListView();
         }
 
-        private void UpdateCalamityList()
+        private void UpdateCalamityListView()
         {
             if (tb_SearchCalamity.Text.Trim() != "")
             {
@@ -134,7 +135,7 @@ namespace DeviceDatabase.View
             }
         }
 
-        private void UpdateDeviceTypeList()
+        private void UpdateDeviceTypeListView()
         {
             if (tb_SearchDeviceType.Text.Trim() != "")
             {
@@ -153,8 +154,8 @@ namespace DeviceDatabase.View
             if (MessageBox.Show(string.Format("Are you sure you want to delete {0}?", d.Name), string.Format("Deleting device {0}", d.Name), MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
                 DatabaseController.DeleteDeviceType(d.DeviceTypeId);
-                UpdateDeviceList();
-                UpdateDeviceTypeList();
+                UpdateDeviceListView();
+                UpdateDeviceTypeListView();
             }
         }
 
@@ -167,8 +168,8 @@ namespace DeviceDatabase.View
             if (adt.ShowDialog() == true)
             {
                 DatabaseController.EditDeviceType(adt.NewDeviceType);
-                UpdateDeviceList();
-                UpdateDeviceTypeList();
+                UpdateDeviceListView();
+                UpdateDeviceTypeListView();
             }
         }
 
@@ -181,8 +182,8 @@ namespace DeviceDatabase.View
             if (acv.ShowDialog() == true)
             {
                 DatabaseController.EditCalamity(acv.NewCalamity);
-                UpdateDeviceList();
-                UpdateCalamityList();
+                UpdateDeviceListView();
+                UpdateCalamityListView();
             }
         }
         private void DeleteCalamity(object sender, RoutedEventArgs e)
@@ -192,14 +193,28 @@ namespace DeviceDatabase.View
             if (MessageBox.Show(string.Format("Are you sure you want to delete calamity from {0}?", c.Device.Name), string.Format("Deleting calamity {0}", c.About), MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
                 DatabaseController.DeleteCalamity(c.CalamityId);
-                UpdateCalamityList();
-                UpdateDeviceList();
+                UpdateCalamityListView();
+                UpdateDeviceListView();
             }
+        }
+
+        private void CalamityIsSolvedChanged(object sender, RoutedEventArgs e)
+        {
+            // Get clicked Calamity from DataGridList
+            Calamity c = (Calamity)this.dg_CalamityList.SelectedItem;
+            // Cast sender to checkbox
+            CheckBox cb = (CheckBox)sender;
+
+            c.IsSolved = cb.IsChecked.Value;
+
+            DatabaseController.EditCalamity(c);
+            // Update view
+            UpdateCalamityListView();
         }
 
         private void tb_SearchCalamity_TextChanged(object sender, TextChangedEventArgs e)
         {
-            UpdateCalamityList();
+            UpdateCalamityListView();
         }
     }
 }

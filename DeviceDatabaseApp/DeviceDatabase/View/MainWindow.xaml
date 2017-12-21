@@ -141,6 +141,18 @@
                             <DataGridTextColumn MaxWidth="100" Header="About" Binding="{Binding About}" />
                             <DataGridTextColumn MaxWidth="100" Header="Device Name" Binding="{Binding Device.Name}" />
                             <DataGridTextColumn MaxWidth="100" Header="Date" Binding="{Binding Date, StringFormat=dd/MM/yyyy}" />
+                            <DataGridTemplateColumn MaxWidth="100" Header="Solved">
+                                <DataGridTemplateColumn.HeaderStyle>
+                                    <Style TargetType="DataGridColumnHeader">
+                                        <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                    </Style>
+                                </DataGridTemplateColumn.HeaderStyle>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox VerticalAlignment="Center" HorizontalAlignment="Center" IsChecked="{Binding IsSolved}" Click="CalamityIsSolvedChanged"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
                             <DataGridTemplateColumn MaxWidth="100" Header="Edit">
                                 <DataGridTemplateColumn.HeaderStyle>
                                     <Style TargetType="DataGridColumnHeader">
