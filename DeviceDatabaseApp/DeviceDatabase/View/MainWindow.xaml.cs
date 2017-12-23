@@ -23,6 +23,10 @@ namespace DeviceDatabase.View
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
+    /// 
+
+    //https://lvcharts.net/App/examples/wpf/start
+
     public partial class MainWindow : Window
     {
         public SeriesCollection SeriesCollection { get; set; }
@@ -41,6 +45,9 @@ namespace DeviceDatabase.View
             string prev = "";
             Labels = new List<string>();
 
+            DateTime d = DateTime.Now;
+
+            cList = cList.Where(e => e.Date.Month == d.Month && e.Date.Year == d.Year).ToList();
             cList.OrderBy(e => e.Device.Name);
 
             for (int i = 0; i < cList.Count; i++)
