@@ -1,6 +1,8 @@
 ﻿using DeviceDatabase.Controller;
 using DeviceDatabase.Model;
 using DeviceDatabase.View.CustomMessageBox;
+using LiveCharts;
+using LiveCharts.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,9 +25,69 @@ namespace DeviceDatabase.View
     /// </summary>
     public partial class MainWindow : Window
     {
+        public SeriesCollection SeriesCollection { get; set; }
+        public List<string> Labels { get; set; }
+        public Func<int, string> Formatter { get; set; }
+
         public MainWindow()
         {
             InitializeComponent();
+
+            List<Calamity> cList = DatabaseController.GetCalamities();
+
+            ChartValues<int> chartValues = new ChartValues<int>();
+
+            int count = 0;
+            string prev = "";
+            Labels = new List<string>();
+
+            cList.OrderBy(e => e.Device.Name);
+
+            for (int i = 0; i < cList.Count; i++)
+            {
+                Calamity c = cList[i];
+
+                if (c.Device.Name != prev)
+                {
+                    if (count != 0)
+                    {
+                        chartValues.Add(count);
+                        Labels.Add(prev);
+                        prev = c.Device.Name;
+                        count = 1;
+                    }
+                    else
+                    {
+                        prev = c.Device.Name;
+                        count = 1;
+                    }
+
+                }
+                else
+                {
+                    count++;
+                    prev = c.Device.Name;
+                }
+
+                if (i == cList.Count - 1)
+                {
+                    chartValues.Add(count);
+                    Labels.Add(prev);
+                }
+            }
+
+            SeriesCollection = new SeriesCollection
+            {
+                new ColumnSeries
+                {
+                    Title = "Calamities",
+                    Values = chartValues
+                }
+            };
+
+            Formatter = value => value.ToString();
+
+            DataContext = this;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
