@@ -27,8 +27,8 @@ namespace DeviceDatabase.Controller
 
             string result = rs.ToString();
 
-            //Check incase the generated happens to be not unique
-            //5.567.902.560 possible combinations but better safe than sorry
+            //Check incase the generated serial code happens to be not unique
+            //5.567.902.560 possible combinations, but better safe than sorry
             if (!DatabaseController.CheckIfSerialCodeIsUnique(result))
             {
                 result = GenerateRandomSerialCode();

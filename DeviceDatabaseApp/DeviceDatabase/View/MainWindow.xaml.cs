@@ -29,80 +29,21 @@ namespace DeviceDatabase.View
 
     public partial class MainWindow : Window
     {
-        public SeriesCollection SeriesCollection { get; set; }
-        public List<string> Labels { get; set; }
-        public Func<int, string> Formatter { get; set; }
+        private LiveChartsController liveChartsController;
 
         public MainWindow()
         {
             InitializeComponent();
 
-            List<Calamity> cList = DatabaseController.GetCalamities();
+            liveChartsController = new LiveChartsController();
 
-            ChartValues<int> chartValues = new ChartValues<int>();
+            // Bind data to the UI
 
-            int count = 0;
-            string prev = "";
-            Labels = new List<string>();
-
-            DateTime d = DateTime.Now;
-
-            cList = cList.Where(e => e.Date.Month == d.Month && e.Date.Year == d.Year).ToList();
-            cList.OrderBy(e => e.Device.Name);
-
-            for (int i = 0; i < cList.Count; i++)
-            {
-                Calamity c = cList[i];
-
-                if (c.Device.Name != prev)
-                {
-                    if (count != 0)
-                    {
-                        chartValues.Add(count);
-                        Labels.Add(prev);
-                        prev = c.Device.Name;
-                        count = 1;
-                    }
-                    else
-                    {
-                        prev = c.Device.Name;
-                        count = 1;
-                    }
-
-                }
-                else
-                {
-                    count++;
-                    prev = c.Device.Name;
-                }
-
-                if (i == cList.Count - 1)
-                {
-                    chartValues.Add(count);
-                    Labels.Add(prev);
-                }
-            }
-
-            SeriesCollection = new SeriesCollection
-            {
-                new ColumnSeries
-                {
-                    Title = "Calamities",
-                    Values = chartValues
-                }
-            };
-
-            Formatter = value => value.ToString();
-
-            DataContext = this;
+            DataContext = liveChartsController;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            List<Device> d = DatabaseController.GetDevices();
-
-            this.dg_DevicesList.ItemsSource = DatabaseController.GetDevices();
-
             UpdateDeviceListView();
             UpdateDeviceTypeListView();
             UpdateCalamityListView();
@@ -119,6 +60,7 @@ namespace DeviceDatabase.View
                 DatabaseController.AddCalamity(d.DeviceId, acv.NewCalamity);
                 UpdateDeviceListView();
                 UpdateCalamityListView();
+                liveChartsController.UpdateDistinctYears();
             }
         }
 
@@ -131,6 +73,7 @@ namespace DeviceDatabase.View
                 DatabaseController.DeleteDevice(d.DeviceId);
                 UpdateDeviceListView();
                 UpdateCalamityListView();
+                liveChartsController.UpdateDistinctYears();
             }
         }
 
@@ -156,6 +99,7 @@ namespace DeviceDatabase.View
                 DatabaseController.EditDevice(adv.NewDevice);
                 UpdateDeviceListView();
                 UpdateCalamityListView();
+                liveChartsController.UpdateDistinctYears();
             }
         }
 
@@ -203,6 +147,58 @@ namespace DeviceDatabase.View
                 this.dg_CalamityList.ItemsSource = DatabaseController.GetCalamities();
             }
         }
+
+        private void cb_Years_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            cb_YearsSelectedItemCheck();
+        }
+
+        private void cb_Years_TargetUpdated(object sender, DataTransferEventArgs e)
+        {
+            this.cb_Years.SelectedIndex = 0;
+
+            cb_YearsSelectedItemCheck();
+        }
+
+        private void cb_YearsSelectedItemCheck()
+        {
+            if (this.cb_Years.SelectedItem != null)
+            {
+                this.liveChartsController.SelectedYear = this.cb_Years.SelectedItem.ToString();
+                this.liveChartsController.UpdateDistinctMonths();
+            }
+            else
+            {
+                this.liveChartsController.SelectedYear = null;
+                liveChartsController.ClearLiveChart();
+            }
+        }
+
+        private void cb_Months_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            cb_MonthsSelectedItemCheck();
+        }
+
+        private void cb_Months_TargetUpdated(object sender, DataTransferEventArgs e)
+        {
+            this.cb_Months.SelectedIndex = 0;
+            cb_MonthsSelectedItemCheck();
+        }
+
+        private void cb_MonthsSelectedItemCheck()
+        {
+            if (this.cb_Months.SelectedItem != null)
+            {
+                string str = this.cb_Months.SelectedItem.ToString();
+                liveChartsController.UpdateLiveChart(str);
+            }
+            else
+            {
+                liveChartsController.ClearLiveChart();
+            }
+        }
+
+
 
         private void UpdateDeviceTypeListView()
         {
@@ -253,6 +249,7 @@ namespace DeviceDatabase.View
                 DatabaseController.EditCalamity(acv.NewCalamity);
                 UpdateDeviceListView();
                 UpdateCalamityListView();
+                liveChartsController.UpdateDistinctYears();
             }
         }
         private void DeleteCalamity(object sender, RoutedEventArgs e)
@@ -264,6 +261,7 @@ namespace DeviceDatabase.View
                 DatabaseController.DeleteCalamity(c.CalamityId);
                 UpdateCalamityListView();
                 UpdateDeviceListView();
+                liveChartsController.UpdateDistinctYears();
             }
         }
 
@@ -279,6 +277,8 @@ namespace DeviceDatabase.View
             DatabaseController.EditCalamity(c);
             // Update view
             UpdateCalamityListView();
+
+            liveChartsController.UpdateDistinctYears();
         }
 
         private void tb_SearchCalamity_TextChanged(object sender, TextChangedEventArgs e)

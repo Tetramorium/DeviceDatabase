@@ -76,7 +76,16 @@ namespace DeviceDatabase.Controller
                 AddDevice(d_Laptop);
                 AddDevice(d_Beamer);
 
-                AddCalamity(d_Server.DeviceId, new Calamity("Many smoke", new DateTime(1992, 01, 24)));
+                AddCalamity(d_Server.DeviceId, new Calamity("Many smoke", new DateTime(1992, 01, 24), true));
+                AddCalamity(d_Server.DeviceId, new Calamity("Many smoke", new DateTime(1992, 01, 27), true));
+                AddCalamity(d_Server.DeviceId, new Calamity("Many smoke", new DateTime(1992, 02, 04), true));
+                AddCalamity(d_Server.DeviceId, new Calamity("Many smoke", new DateTime(1992, 02, 10), false));
+
+                AddCalamity(d_Server.DeviceId, new Calamity("Many smoke", new DateTime(1993, 01, 24), true));
+                AddCalamity(d_Server.DeviceId, new Calamity("Many smoke", new DateTime(1992, 01, 27), true));
+                AddCalamity(d_Server.DeviceId, new Calamity("Many smoke", new DateTime(1993, 02, 04), true));
+                AddCalamity(d_Server.DeviceId, new Calamity("Many smoke", new DateTime(1992, 02, 10), false));
+
                 AddCalamity(d_Server.DeviceId, new Calamity("Many smoke", new DateTime(1997, 08, 31)));
 
                 AddCalamity(d_Laptop.DeviceId, new Calamity("Many smoke", new DateTime(1993, 07, 22)));

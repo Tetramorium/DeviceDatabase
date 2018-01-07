@@ -34,7 +34,6 @@ namespace DeviceDatabase.Model
 
         public Device()
         {
-
         }
     }
 }

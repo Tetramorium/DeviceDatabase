@@ -22,7 +22,6 @@ namespace DeviceDatabase.Model
 
         public DeviceType()
         {
-
         }
 
         //https://rachel53461.wordpress.com/2011/08/20/comboboxs-selecteditem-not-displaying/

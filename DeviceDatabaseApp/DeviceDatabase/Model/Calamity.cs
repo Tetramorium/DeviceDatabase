@@ -27,9 +27,15 @@ namespace DeviceDatabase.Model
             this.Date = _Date;
         }
 
+        public Calamity(string _About, DateTime _Date, bool _IsSolved)
+        {
+            this.About = _About;
+            this.Date = _Date;
+            this.IsSolved = _IsSolved;
+        }
+
         public Calamity()
         {
-
         }
     }
 }
