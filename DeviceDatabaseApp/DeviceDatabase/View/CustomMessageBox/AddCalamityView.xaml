@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DeviceDatabase.View.CustomMessageBox"
         mc:Ignorable="d"
-        Title="Add calamity for Device Name" Height="246.193" Width="237.428" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" WindowStyle="ToolWindow" Icon="/DeviceDatabase;component/fire extinguisher.ico">
+        Title="Add calamity for Device Name" Height="246.193" Width="237.428" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" WindowStyle="ToolWindow">
     <Grid RenderTransformOrigin="0.5,0.5">
         <Grid.RenderTransform>
             <TransformGroup>
