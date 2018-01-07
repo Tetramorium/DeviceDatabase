@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:DeviceDatabase"
         xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         mc:Ignorable="d"
-        Title="Database Device Calamities" Height="350" Width="495.784" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen">
+        Title="Database Device Calamities" Height="350" Width="495.784" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen" Icon="/DeviceDatabase;component/fire extinguisher.ico">
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="New">

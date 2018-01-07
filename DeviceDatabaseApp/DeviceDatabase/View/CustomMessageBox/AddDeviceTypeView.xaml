@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DeviceDatabase.View.CustomMessageBox"
         mc:Ignorable="d"
-        Title="Add new Device Type" Height="112.74" Width="250.196" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" WindowStyle="ToolWindow">
+        Title="Add new Device Type" Height="112.74" Width="250.196" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" WindowStyle="ToolWindow" Icon="/DeviceDatabase;component/Devices drive harddisk system.ico">
     <Grid>
         <Label Content="Device Type:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="tb_DeviceTypeName" HorizontalAlignment="Left" Height="23" Margin="91,13,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="133" Grid.ColumnSpan="2"/>
