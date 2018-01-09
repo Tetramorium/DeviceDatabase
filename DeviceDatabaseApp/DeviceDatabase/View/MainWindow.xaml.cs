@@ -1,11 +1,13 @@
 ﻿using DeviceDatabase.Controller;
 using DeviceDatabase.Model;
+using DeviceDatabase.Model.Authentication;
 using DeviceDatabase.View.CustomMessageBox;
 using LiveCharts;
 using LiveCharts.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Permissions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -27,9 +29,11 @@ namespace DeviceDatabase.View
 
     //https://lvcharts.net/App/examples/wpf/start
 
-    public partial class MainWindow : Window
+    [PrincipalPermission(SecurityAction.Demand)]
+    public partial class MainWindow : Window, IView
     {
         private LiveChartsController liveChartsController;
+        public event EventHandler LoggingOut;
 
         public MainWindow()
         {
@@ -40,6 +44,18 @@ namespace DeviceDatabase.View
             // Bind data to the UI
 
             DataContext = liveChartsController;
+        }
+
+        public IViewModel ViewModel
+        {
+            get
+            {
+                return DataContext as IViewModel;
+            }
+            set
+            {
+                DataContext = value;
+            }
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -284,6 +300,16 @@ namespace DeviceDatabase.View
         private void tb_SearchCalamity_TextChanged(object sender, TextChangedEventArgs e)
         {
             UpdateCalamityListView();
+        }
+
+        private void LogOutClick(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            this.LoggingOut?.Invoke(this, new EventArgs());
         }
     }
 }

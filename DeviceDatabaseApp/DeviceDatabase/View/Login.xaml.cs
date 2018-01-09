@@ -1,5 +1,6 @@
 ﻿using DeviceDatabase.Controller;
 using DeviceDatabase.Model;
+using DeviceDatabase.Model.Authentication;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,13 +17,26 @@ using System.Windows.Shapes;
 
 namespace DeviceDatabase.View
 {
+
+    public interface IView
+    {
+        IViewModel ViewModel
+        {
+            get;
+            set;
+        }
+
+        void Show();
+    }
+
     /// <summary>
     /// Interaction logic for Login.xaml
     /// </summary>
-    public partial class Login : Window
+    public partial class Login : Window, IView
     {
-        public Login()
+        public Login(AuthenticationViewModel viewModel)
         {
+            ViewModel = viewModel;
             InitializeComponent();
         }
 
@@ -33,16 +47,22 @@ namespace DeviceDatabase.View
 
         private void bt_AdministratorLogin_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow mw = new MainWindow();
-            mw.Show();
-            this.Close();
+            //MainWindow mw = new MainWindow();
+            //mw.Show();
+            //this.Close();
         }
 
         private void bt_ManagerLogin_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow mw = new MainWindow();
-            mw.Show();
-            this.Close();
+            //MainWindow mw = new MainWindow();
+            //mw.Show();
+            //this.Close();
+        }
+
+        public IViewModel ViewModel
+        {
+            get { return DataContext as IViewModel; }
+            set { DataContext = value; }
         }
     }
 }

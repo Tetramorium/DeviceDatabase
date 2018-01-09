@@ -23,7 +23,6 @@ namespace DeviceDatabase.Controller
         public List<string> DistinctYears { get; set; }
         public List<string> DistinctMonths { get; set; }
 
-        private string SelectedMonth;
         private List<DateTime> dates;
 
         public event PropertyChangedEventHandler PropertyChanged;
