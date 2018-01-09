@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{8EED48F1-ACE8-48E6-8649-5292559C137F}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <RootNamespace>DeviceDatabase</RootNamespace>
     <AssemblyName>DeviceDatabase</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>

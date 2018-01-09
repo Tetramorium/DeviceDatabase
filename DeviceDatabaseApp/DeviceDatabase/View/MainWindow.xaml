@@ -172,7 +172,7 @@
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTemplateColumn IsReadOnly="True" MaxWidth="100" Header="Solved" Visibility="{Binding Converter={StaticResource RoleToVisibilityConverter}, ConverterParameter=Administrator, Source={StaticResource proxy}}">
+                            <DataGridTemplateColumn IsReadOnly="True" MaxWidth="100" Header="Solved" Visibility="{Binding Converter={StaticResource RoleToVisibilityConverter}, ConverterParameter=Manager, Source={StaticResource proxy}}">
                                 <DataGridTemplateColumn.HeaderStyle>
                                     <Style TargetType="DataGridColumnHeader">
                                         <Setter Property="HorizontalContentAlignment" Value="Center" />
@@ -180,7 +180,7 @@
                                 </DataGridTemplateColumn.HeaderStyle>
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <CheckBox VerticalAlignment="Center" HorizontalAlignment="Center" IsChecked="{Binding IsSolved}"/>
+                                        <CheckBox IsEnabled="False" VerticalAlignment="Center" HorizontalAlignment="Center" IsChecked="{Binding IsSolved}"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
