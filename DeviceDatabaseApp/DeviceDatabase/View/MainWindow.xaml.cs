@@ -4,6 +4,7 @@ using DeviceDatabase.Model.Authentication;
 using DeviceDatabase.View.CustomMessageBox;
 using LiveCharts;
 using LiveCharts.Wpf;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,6 +34,8 @@ namespace DeviceDatabase.View
     public partial class MainWindow : Window, IView
     {
         private LiveChartsController liveChartsController;
+        private BarcodeStickerController barcodeStickerController;
+
         public event EventHandler LoggingOut;
 
         public MainWindow()
@@ -40,6 +43,7 @@ namespace DeviceDatabase.View
             InitializeComponent();
 
             liveChartsController = new LiveChartsController();
+            barcodeStickerController = new BarcodeStickerController();
 
             // Bind data to the UI
 
@@ -300,6 +304,29 @@ namespace DeviceDatabase.View
         private void tb_SearchCalamity_TextChanged(object sender, TextChangedEventArgs e)
         {
             UpdateCalamityListView();
+        }
+
+        private void ShowPrintBarcodePreview(object sender, RoutedEventArgs e)
+        {
+            Device d = (Device)this.dg_DevicesList.SelectedItem;
+
+            System.Drawing.Image img = barcodeStickerController.GenerateSticker(d);
+
+            BarcodeView bcv = new BarcodeView(this, barcodeStickerController.ConvertToBitmapImage(img), d.Name);
+
+            if (bcv.ShowDialog() == true)
+            {
+                SaveFileDialog saveFileDialog = new SaveFileDialog();
+
+                saveFileDialog.FileName = d.Name;
+                saveFileDialog.DefaultExt = ".jpg";
+                saveFileDialog.Filter = "Images|*.png;*.bmp;*.jpg";
+
+                if (saveFileDialog.ShowDialog() == true)
+                {
+                    img.Save(saveFileDialog.FileName);
+                }
+            }
         }
 
         private void LogOutClick(object sender, RoutedEventArgs e)

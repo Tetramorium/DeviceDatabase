@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{8EED48F1-ACE8-48E6-8649-5292559C137F}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <RootNamespace>DeviceDatabase</RootNamespace>
     <AssemblyName>DeviceDatabase</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
@@ -42,6 +42,9 @@
     <ApplicationIcon>fire extinguisher.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BarcodeLib">
+      <HintPath>..\..\..\..\..\MyCloud\Source Code\C#\Libraries\BarcodeLib.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -66,6 +69,7 @@
     <Reference Include="System.Data.SQLite.Linq, Version=1.0.106.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Data.SQLite.Linq.1.0.106.0\lib\net46\System.Data.SQLite.Linq.dll</HintPath>
     </Reference>
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -96,6 +100,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\CustomMessageBox\BarcodeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Login.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -116,6 +124,7 @@
     <Compile Include="Controller\LiveChartsController.cs" />
     <Compile Include="Controller\SerialCodeController.cs" />
     <Compile Include="Controller\SQLiteDbCustom.cs" />
+    <Compile Include="Controller\BarcodeStickerController.cs" />
     <Compile Include="CustomConverters\RoleToVisibilityConverter.cs" />
     <Compile Include="Model\Authentication\AnonymousIdentity.cs" />
     <Compile Include="Model\Authentication\AuthenticationViewModel.cs" />
@@ -133,6 +142,9 @@
     </Compile>
     <Compile Include="View\CustomMessageBox\AddDeviceView.xaml.cs">
       <DependentUpon>AddDeviceView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\CustomMessageBox\BarcodeView.xaml.cs">
+      <DependentUpon>BarcodeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>

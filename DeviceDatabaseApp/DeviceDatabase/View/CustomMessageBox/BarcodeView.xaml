@@ -1,0 +1,15 @@
+﻿<Window x:Class="DeviceDatabase.View.CustomMessageBox.BarcodeView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DeviceDatabase.View.CustomMessageBox"
+        mc:Ignorable="d"
+        Title="BarcodeView" Height="244.391" Width="342.703" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" WindowStyle="ToolWindow">
+    <Grid>
+        <Image x:Name="img_GeneratedBarcode" HorizontalAlignment="Left" Height="160" Margin="10,10,0,0" VerticalAlignment="Top" Width="300"/>
+        <Button x:Name="bt_Save" Content="Save" HorizontalAlignment="Left" Margin="10,175,0,0" VerticalAlignment="Top" Width="75" Click="bt_Save_Click" RenderTransformOrigin="-1.351,-3.534"/>
+        <Button x:Name="bt_Cancel" Content="Close" HorizontalAlignment="Left" Margin="235,175,0,0" VerticalAlignment="Top" Width="75" IsCancel="True" RenderTransformOrigin="-0.307,-2.703"/>
+
+    </Grid>
+</Window>

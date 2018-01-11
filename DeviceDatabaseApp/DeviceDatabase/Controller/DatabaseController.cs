@@ -257,6 +257,14 @@ namespace DeviceDatabase.Controller
             }
         }
 
+        public static Device SearchDeviceBySerialCode(string _SerialCode)
+        {
+            using (DatabaseContext dc = new DatabaseContext())
+            {
+                return dc.Devices.FirstOrDefault(e => e.SerialCode == _SerialCode);
+            }
+        }
+
         public static bool CheckIfSerialCodeIsUnique(string str)
         {
             using (DatabaseContext dc = new DatabaseContext())
