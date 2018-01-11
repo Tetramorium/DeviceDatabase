@@ -25,7 +25,7 @@ namespace DeviceDatabase.View.CustomMessageBox
             InitializeComponent();
 
             this.Owner = _Owner;
-            this.Title = string.Format("Editing {0}", _DeviceName);
+            this.Title = string.Format("Barcode {0}", _DeviceName);
 
             this.img_GeneratedBarcode.Width = _GeneratedBarcode.Width;
             this.img_GeneratedBarcode.Height = _GeneratedBarcode.Height;
