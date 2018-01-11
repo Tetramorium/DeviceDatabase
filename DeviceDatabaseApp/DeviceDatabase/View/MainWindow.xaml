@@ -17,8 +17,8 @@
             <MenuItem Header="Program">
                 <MenuItem Header="Logout" Click="LogOutClick"></MenuItem>
             </MenuItem>
-            <MenuItem Header="New" Visibility="{Binding Converter={StaticResource RoleToVisibilityConverter}, ConverterParameter=Administrator}">
-                <MenuItem Header="Device" Click="AddDevice"></MenuItem>
+            <MenuItem Header="New">
+                <MenuItem Header="Device" Click="AddDevice" Visibility="{Binding Converter={StaticResource RoleToVisibilityConverter}, ConverterParameter=Administrator}"></MenuItem>
                 <MenuItem Header="Device Type" Click="AddDeviceType"></MenuItem>
             </MenuItem>
         </Menu>
@@ -221,7 +221,7 @@
 
                 </Grid>
             </TabItem>
-            <TabItem x:Name="tb_Rapports" Header="Rapports">
+            <TabItem x:Name="tb_Rapports" Header="Rapports" Visibility="{Binding Converter={StaticResource RoleToVisibilityConverter}, ConverterParameter=Manager}">
                 <Grid Background="#FFE5E5E5">
                     <lvc:CartesianChart DisableAnimations="True" Series="{Binding Path=SeriesCollection, Mode=OneWay}" LegendLocation="Left" Margin="0,39,0,0">
                         <lvc:CartesianChart.AxisX>
