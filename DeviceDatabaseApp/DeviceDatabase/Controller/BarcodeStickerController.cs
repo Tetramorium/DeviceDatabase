@@ -11,6 +11,9 @@ using System.Windows.Media.Imaging;
 
 namespace DeviceDatabase.Controller
 {
+
+    //https://www.codeproject.com/Articles/20823/Barcode-Image-Generation-Library
+
     public class BarcodeStickerController
     {
         public Image GenerateSticker(Device _Device)
