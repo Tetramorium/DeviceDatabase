@@ -43,13 +43,13 @@ namespace DeviceDatabase.Controller
                 System.Drawing.Rectangle rect = new System.Drawing.Rectangle(0, addedHeight, barcodeImage.Width, barcodeImage.Height);
                 g.DrawImageUnscaledAndClipped(barcodeImage, rect);
                 // Font to draw strings with
-                Font font = new Font("Times New Roman", 12.0f);
+                Font font = new Font("Segoe UI", 12.0f, FontStyle.Bold);
                 // Create strings to draw on new Image
                 string deviceName = string.Format("Device name:  {0}", _Device.Name);
                 string deviceType;
                 // DeviceType can be null; Safety check
                 if (_Device.DeviceType != null)
-                    deviceType = string.Format("Device type:   {0}", _Device.DeviceType.Name);
+                    deviceType = string.Format("Device type:    {0}", _Device.DeviceType.Name);
                 else
                     deviceType = string.Format("Device type:     Undefined");
 
@@ -65,13 +65,13 @@ namespace DeviceDatabase.Controller
                 if (deviceNameSize.Width > deviceTypeSize.Width)
                 {
                     drawLocationY = (editedBarcodeImage.Width / 2) - (deviceNameSize.Width / 2);
-                    deviceNamePointF = new PointF(drawLocationY, 10);
+                    deviceNamePointF = new PointF(drawLocationY, 8);
                     deviceTypeSizePointF = new PointF(drawLocationY, 26);
                 }
                 else
                 {
                     drawLocationY = (editedBarcodeImage.Width / 2) - (deviceTypeSize.Width / 2);
-                    deviceNamePointF = new PointF(drawLocationY, 10);
+                    deviceNamePointF = new PointF(drawLocationY, 8);
                     deviceTypeSizePointF = new PointF(drawLocationY, 26);
                 }
                 // Draw strings on new Image
