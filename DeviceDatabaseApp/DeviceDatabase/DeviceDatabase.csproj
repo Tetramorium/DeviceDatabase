@@ -146,6 +146,7 @@
     <Compile Include="Model\DeviceType.cs" />
     <Compile Include="Model\Logging\Log.cs" />
     <Compile Include="Model\Logging\Logbook.cs" />
+    <Compile Include="Tools\SortableBindingList.cs" />
     <Compile Include="View\CustomMessageBox\AddCalamityView.xaml.cs">
       <DependentUpon>AddCalamityView.xaml</DependentUpon>
     </Compile>

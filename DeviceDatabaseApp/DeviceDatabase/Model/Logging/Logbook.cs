@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DeviceDatabase.Tools;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -11,11 +12,11 @@ namespace DeviceDatabase.Model.Logging
     public class Logbook
     {
         [XmlElement("Log")]
-        public BindingList<Log> LogList { get; set; }
+        public SortableBindingList<Log> LogList { get; set; }
 
         public Logbook()
         {
-            this.LogList = new BindingList<Log>();
+            this.LogList = new SortableBindingList<Log>();
         }
 
         public void Add(Log _NewLog)
