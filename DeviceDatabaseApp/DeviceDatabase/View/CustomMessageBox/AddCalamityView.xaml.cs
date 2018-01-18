@@ -1,6 +1,8 @@
-﻿using DeviceDatabase.Model;
+﻿using DeviceDatabase.Controller;
+using DeviceDatabase.Model;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,6 +11,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
@@ -28,7 +31,7 @@ namespace DeviceDatabase.View.CustomMessageBox
 
             this.dp_Date.SelectedDate = DateTime.Today;
             this.Owner = _Owner;
-            this.Title = String.Format("Add calamity for {0}", _DeviceName);
+            this.Title = string.Format("Adding calamity for {0}", _DeviceName);
         }
 
         public AddCalamityView(Window _Owner, Calamity _OldCalamity)
@@ -36,12 +39,15 @@ namespace DeviceDatabase.View.CustomMessageBox
             InitializeComponent();
 
             this.Owner = _Owner;
+            this.Title = string.Format("Editing calamity for {0}", _OldCalamity.Device.Name);
 
             this.NewCalamity = _OldCalamity;
             this.bt_Accept.Click -= bt_AcceptAdd_Click;
             this.bt_Accept.Click += bt_AcceptEdit_Click;
 
-            this.tb_About.Text = _OldCalamity.About;
+            if (!string.IsNullOrEmpty(_OldCalamity.About))
+                this.rtb_Description.Document = XamlReader.Parse(_OldCalamity.About) as FlowDocument;
+
             this.dp_Date.SelectedDate = _OldCalamity.Date;
         }
 
@@ -49,7 +55,8 @@ namespace DeviceDatabase.View.CustomMessageBox
         {
             if(this.dp_Date.SelectedDate != null)
             {
-                this.NewCalamity = new Calamity(this.tb_About.Text, this.dp_Date.SelectedDate.Value);
+                string about = RichTextBoxController.ConvertFlowDocumentToString(rtb_Description.Document);
+                this.NewCalamity = new Calamity(about, this.dp_Date.SelectedDate.Value);
                 this.DialogResult = true;
             } else
             {
@@ -61,7 +68,8 @@ namespace DeviceDatabase.View.CustomMessageBox
         {
             if (this.dp_Date.SelectedDate != null)
             {
-                this.NewCalamity.About = this.tb_About.Text;
+                string about = RichTextBoxController.ConvertFlowDocumentToString(rtb_Description.Document);
+                this.NewCalamity.About = about;
                 this.NewCalamity.Date = this.dp_Date.SelectedDate.Value;
                 this.DialogResult = true;
             }
@@ -69,6 +77,11 @@ namespace DeviceDatabase.View.CustomMessageBox
             {
                 MessageBox.Show("Select a valid date");
             }
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            this.DataContext = NewCalamity;
         }
     }
 }

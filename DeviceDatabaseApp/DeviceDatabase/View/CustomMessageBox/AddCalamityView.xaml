@@ -4,8 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DeviceDatabase.View.CustomMessageBox"
-        mc:Ignorable="d"
-        Title="Add calamity for Device Name" Height="246.193" Width="237.428" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" WindowStyle="ToolWindow">
+        mc:Ignorable="d"      
+        Title="Adding calamity for device" Height="266.191" Width="324.32" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" WindowStyle="ToolWindow" Loaded="Window_Loaded">
     <Grid RenderTransformOrigin="0.5,0.5">
         <Grid.RenderTransform>
             <TransformGroup>
@@ -16,11 +16,15 @@
             </TransformGroup>
         </Grid.RenderTransform>
         <Label HorizontalAlignment="Left" Margin="217,138,0,0" VerticalAlignment="Top"/>
-        <Label Content="Description" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="tb_About" HorizontalAlignment="Left" Height="107" Margin="10,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="197"/>
-        <DatePicker x:Name="dp_Date" HorizontalAlignment="Left" Margin="10,148,0,0" VerticalAlignment="Top" Width="197" FirstDayOfWeek="Monday" DisplayDate="2017-12-15" SelectedDateFormat="Long"/>
-        <Button x:Name="bt_Cancel" Content="Cancel" HorizontalAlignment="Left" Margin="132,177,0,0" VerticalAlignment="Top" Width="75" IsCancel="True"/>
-        <Button x:Name="bt_Accept" Content="Accept" HorizontalAlignment="Left" Margin="10,177,0,0" VerticalAlignment="Top" Width="75" Click="bt_AcceptAdd_Click"/>
+        <Label Content="Description:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+        <DatePicker x:Name="dp_Date" HorizontalAlignment="Left" Margin="10,166,0,0" VerticalAlignment="Top" Width="285" FirstDayOfWeek="Monday" DisplayDateEnd="{Binding IsSolvedDate}" SelectedDateFormat="Long"/>
+        <Button x:Name="bt_Cancel" Content="Cancel" HorizontalAlignment="Left" Margin="220,195,0,0" VerticalAlignment="Top" Width="75" IsCancel="True"/>
+        <Button x:Name="bt_Accept" Content="Accept" HorizontalAlignment="Left" Margin="10,195,0,0" VerticalAlignment="Top" Width="75" Click="bt_AcceptAdd_Click"/>
+        <RichTextBox Name="rtb_Description" HorizontalAlignment="Left" Height="120" Margin="10,41,0,0" VerticalAlignment="Top" Width="285">
+            <FlowDocument>
+                <Paragraph/>
+            </FlowDocument>
+        </RichTextBox>
 
     </Grid>
 </Window>

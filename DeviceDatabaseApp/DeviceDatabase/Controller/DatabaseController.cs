@@ -14,18 +14,29 @@ namespace DeviceDatabase.Controller
     {
 
         private static XmlController<Logbook> xmlController = new XmlController<Logbook>();
-        private static string logbookFilePath = "Model/Logging/Logbook.xml";
+        private static string logbookFilePath = "Logbook.xml";
         public static Logbook Logbook;
 
         public static void InitialSetup()
         {
-            Logbook = xmlController.Load(logbookFilePath);
-
-            if (!System.IO.File.Exists("Database.sqlite"))
+            if (!System.IO.File.Exists(logbookFilePath))
             {
-                SQLiteConnection.CreateFile("Database.sqlite");
+                Logbook = new Logbook();
+                xmlController.save(logbookFilePath, Logbook);
+            } else
+            {
+                Logbook = xmlController.Load(logbookFilePath);
+            }
 
-                AddLog("Created Database.sqlite file");
+            
+
+            string databaseFilename = "Database.sqlite";
+
+            if (!System.IO.File.Exists(databaseFilename))
+            {
+                SQLiteConnection.CreateFile(databaseFilename);
+
+                AddLog(string.Format("Created {0} file", databaseFilename));
 
                 using (DatabaseContext dc = new DatabaseContext())
                 {
@@ -51,6 +62,8 @@ namespace DeviceDatabase.Controller
                         "('CalamityId' INTEGER PRIMARY KEY AUTOINCREMENT," +
                         " 'DeviceId' INTEGER," +
                         " 'About' TEXT NOT NULL," +
+                        " 'IsSolvedSolution' TEXT," +
+                        " 'IsSolvedDate' DATE," +
                         " 'Date' DATE NOT NULL," +
                         " 'IsSolved' INTEGER, " +
                         "  FOREIGN KEY (CalamityId) REFERENCES Device ON DELETE CASCADE" +
@@ -65,7 +78,7 @@ namespace DeviceDatabase.Controller
                         " 'Name' TEXT NOT NULL," +
                         "  CONSTRAINT name_unique UNIQUE (Name))"
                     );
-                    AddLog("Created table DeviceType");               
+                    AddLog("Created table DeviceType");
                     dc.SaveChanges();
                 }
 
@@ -232,6 +245,8 @@ namespace DeviceDatabase.Controller
                 d.About = _EditedCalamity.About;
                 d.Date = _EditedCalamity.Date;
                 d.IsSolved = _EditedCalamity.IsSolved;
+                d.IsSolvedDate = _EditedCalamity.IsSolvedDate;
+                d.IsSolvedSolution = _EditedCalamity.IsSolvedSolution;
                 dc.Entry(d).State = EntityState.Modified;
                 dc.SaveChanges();
             }
@@ -307,7 +322,7 @@ namespace DeviceDatabase.Controller
         {
             using (DatabaseContext dc = new DatabaseContext())
             {
-                 return dc.Devices.FirstOrDefault(e => e.SerialCode == str) == null;
+                return dc.Devices.FirstOrDefault(e => e.SerialCode == str) == null;
             }
         }
     }

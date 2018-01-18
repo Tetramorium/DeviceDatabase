@@ -7,6 +7,7 @@ using LiveCharts.Wpf;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Permissions;
 using System.Text;
@@ -16,6 +17,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
@@ -311,11 +313,28 @@ namespace DeviceDatabase.View
 
             c.IsSolved = cb.IsChecked.Value;
 
+            if (c.IsSolved)
+            {
+                SolveCalamityView scv = new SolveCalamityView(this, c);
+
+                if (scv.ShowDialog() == true)
+                {
+                    c.IsSolvedDate = scv.Calamity.IsSolvedDate;
+                    c.IsSolvedSolution = scv.Calamity.IsSolvedSolution;
+                } else
+                {
+                    return;
+                }
+            }
+            else
+            {
+                c.IsSolvedDate = null;
+                c.IsSolvedSolution = null;
+            }
+
             DatabaseController.EditCalamity(c);
             // Update view
             UpdateCalamityListView();
-
-            liveChartsController.UpdateDistinctYears();
         }
 
         private void tb_SearchCalamity_TextChanged(object sender, TextChangedEventArgs e)
@@ -344,6 +363,15 @@ namespace DeviceDatabase.View
                     img.Save(saveFileDialog.FileName);
                 }
             }
+        }
+
+        private void InfoCalamity(object sender, RoutedEventArgs e)
+        {
+            // Get clicked Calamity from DataGridList
+            Calamity c = (Calamity)this.dg_CalamityList.SelectedItem;
+
+            CalamityView cv = new CalamityView(this, c);
+            cv.ShowDialog();
         }
 
         private void LogOutClick(object sender, RoutedEventArgs e)

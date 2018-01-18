@@ -169,7 +169,18 @@
                         </DataGrid.Resources>
                         <!--https://stackoverflow.com/a/29559436 WPF Datagrid disable selected row styles or row selecting-->
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="About" Binding="{Binding About}" Width="*" />
+                            <DataGridTemplateColumn MaxWidth="80" Header="About" Width="*" >
+                                <DataGridTemplateColumn.HeaderStyle>
+                                    <Style TargetType="DataGridColumnHeader">
+                                        <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                    </Style>
+                                </DataGridTemplateColumn.HeaderStyle>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Click="InfoCalamity" Content="{Binding CalamityId}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
                             <DataGridTextColumn Header="Device Name" Binding="{Binding Device.Name}" Width="*" />
                             <DataGridTextColumn Header="Date" Binding="{Binding Date, StringFormat=dd/MM/yyyy}" Width="*" />
                             <DataGridTemplateColumn MaxWidth="50" Header="Solved" Visibility="{Binding Converter={StaticResource RoleToVisibilityConverter}, ConverterParameter=Administrator, Source={StaticResource proxy}}" Width="*" >
