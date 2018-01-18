@@ -35,9 +35,9 @@
                             <proxy:BindingProxy x:Key="proxy" Data="{Binding}" />
                         </DataGrid.Resources>
                         <DataGrid.Columns>
-                            <DataGridTextColumn MaxWidth="100" Header="Name" Binding="{Binding Name}" />
-                            <DataGridTextColumn MaxWidth="100" Header="Type" Binding="{Binding DeviceType.Name}" />
-                            <DataGridTextColumn MaxWidth="100" Header="Calamities" Binding="{Binding CalamityCollection.Count}">
+                            <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*" />
+                            <DataGridTextColumn Header="Type" Binding="{Binding DeviceType.Name}" Width="*" />
+                            <DataGridTextColumn MaxWidth="80" Header="Calamities" Binding="{Binding CalamityCollection.Count}" Width="*">
                                 <DataGridTextColumn.HeaderStyle>
                                     <Style TargetType="DataGridColumnHeader">
                                         <Setter Property="HorizontalContentAlignment" Value="Center" />
@@ -49,7 +49,7 @@
                                     </Style>
                                 </DataGridTextColumn.ElementStyle>
                             </DataGridTextColumn>
-                            <DataGridTemplateColumn MaxWidth="100" Header="Add Calamity" Visibility="{Binding Converter={StaticResource RoleToVisibilityConverter}, ConverterParameter=Administrator, Source={StaticResource proxy}}">
+                            <DataGridTemplateColumn MaxWidth="80" Header="Add Calamity" Visibility="{Binding Converter={StaticResource RoleToVisibilityConverter}, ConverterParameter=Administrator, Source={StaticResource proxy}}" Width="*" >
                                 <DataGridTemplateColumn.HeaderStyle>
                                     <Style TargetType="DataGridColumnHeader">
                                         <Setter Property="HorizontalContentAlignment" Value="Center" />
@@ -61,7 +61,7 @@
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTemplateColumn MaxWidth="100" Header="Edit" Visibility="{Binding Converter={StaticResource RoleToVisibilityConverter}, ConverterParameter=Administrator, Source={StaticResource proxy}}">
+                            <DataGridTemplateColumn MaxWidth="80" Header="Edit" Visibility="{Binding Converter={StaticResource RoleToVisibilityConverter}, ConverterParameter=Administrator, Source={StaticResource proxy}}" Width="*" >
                                 <DataGridTemplateColumn.HeaderStyle>
                                     <Style TargetType="DataGridColumnHeader">
                                         <Setter Property="HorizontalContentAlignment" Value="Center" />
@@ -73,7 +73,7 @@
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTemplateColumn MaxWidth="100" Header="Delete" Visibility="{Binding Converter={StaticResource RoleToVisibilityConverter}, ConverterParameter=Administrator, Source={StaticResource proxy}}">
+                            <DataGridTemplateColumn MaxWidth="80" Header="Delete" Visibility="{Binding Converter={StaticResource RoleToVisibilityConverter}, ConverterParameter=Administrator, Source={StaticResource proxy}}" Width="*" >
                                 <DataGridTemplateColumn.HeaderStyle>
                                     <Style TargetType="DataGridColumnHeader">
                                         <Setter Property="HorizontalContentAlignment" Value="Center" />
@@ -85,7 +85,7 @@
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTemplateColumn MaxWidth="100" Header="Barcode">
+                            <DataGridTemplateColumn MaxWidth="80" Header="Barcode" Width="*" >
                                 <DataGridTemplateColumn.HeaderStyle>
                                     <Style TargetType="DataGridColumnHeader">
                                         <Setter Property="HorizontalContentAlignment" Value="Center" />
@@ -120,8 +120,8 @@
                             <proxy:BindingProxy x:Key="proxy" Data="{Binding}" />
                         </DataGrid.Resources>
                         <DataGrid.Columns>
-                            <DataGridTextColumn MaxWidth="100" Header="Name" Binding="{Binding Name}" />
-                            <DataGridTemplateColumn MaxWidth="100" Header="Edit">
+                            <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*" />
+                            <DataGridTemplateColumn MaxWidth="80" Header="Edit" Width="*" >
                                 <DataGridTemplateColumn.HeaderStyle>
                                     <Style TargetType="DataGridColumnHeader">
                                         <Setter Property="HorizontalContentAlignment" Value="Center" />
@@ -133,7 +133,7 @@
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTemplateColumn MaxWidth="100" Header="Delete">
+                            <DataGridTemplateColumn MaxWidth="80" Header="Delete" Width="*" >
                                 <DataGridTemplateColumn.HeaderStyle>
                                     <Style TargetType="DataGridColumnHeader">
                                         <Setter Property="HorizontalContentAlignment" Value="Center" />
@@ -169,10 +169,10 @@
                         </DataGrid.Resources>
                         <!--https://stackoverflow.com/a/29559436 WPF Datagrid disable selected row styles or row selecting-->
                         <DataGrid.Columns>
-                            <DataGridTextColumn MaxWidth="100" Header="About" Binding="{Binding About}" />
-                            <DataGridTextColumn MaxWidth="100" Header="Device Name" Binding="{Binding Device.Name}" />
-                            <DataGridTextColumn MaxWidth="100" Header="Date" Binding="{Binding Date, StringFormat=dd/MM/yyyy}" />
-                            <DataGridTemplateColumn MaxWidth="100" Header="Solved" Visibility="{Binding Converter={StaticResource RoleToVisibilityConverter}, ConverterParameter=Administrator, Source={StaticResource proxy}}">
+                            <DataGridTextColumn Header="About" Binding="{Binding About}" Width="*" />
+                            <DataGridTextColumn Header="Device Name" Binding="{Binding Device.Name}" Width="*" />
+                            <DataGridTextColumn Header="Date" Binding="{Binding Date, StringFormat=dd/MM/yyyy}" Width="*" />
+                            <DataGridTemplateColumn MaxWidth="50" Header="Solved" Visibility="{Binding Converter={StaticResource RoleToVisibilityConverter}, ConverterParameter=Administrator, Source={StaticResource proxy}}" Width="*" >
                                 <DataGridTemplateColumn.HeaderStyle>
                                     <Style TargetType="DataGridColumnHeader">
                                         <Setter Property="HorizontalContentAlignment" Value="Center" />
@@ -184,7 +184,7 @@
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTemplateColumn IsReadOnly="True" MaxWidth="100" Header="Solved" Visibility="{Binding Converter={StaticResource RoleToVisibilityConverter}, ConverterParameter=Manager, Source={StaticResource proxy}}">
+                            <DataGridTemplateColumn MaxWidth="50" IsReadOnly="True" Header="Solved" Visibility="{Binding Converter={StaticResource RoleToVisibilityConverter}, ConverterParameter=Manager, Source={StaticResource proxy}}" Width="*" >
                                 <DataGridTemplateColumn.HeaderStyle>
                                     <Style TargetType="DataGridColumnHeader">
                                         <Setter Property="HorizontalContentAlignment" Value="Center" />
@@ -196,7 +196,7 @@
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTemplateColumn MaxWidth="100" Header="Edit" Visibility="{Binding Converter={StaticResource RoleToVisibilityConverter}, ConverterParameter=Administrator, Source={StaticResource proxy}}">
+                            <DataGridTemplateColumn MaxWidth="80" Header="Edit" Visibility="{Binding Converter={StaticResource RoleToVisibilityConverter}, ConverterParameter=Administrator, Source={StaticResource proxy}}" Width="*" >
                                 <DataGridTemplateColumn.HeaderStyle>
                                     <Style TargetType="DataGridColumnHeader">
                                         <Setter Property="HorizontalContentAlignment" Value="Center" />
@@ -208,7 +208,7 @@
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTemplateColumn MaxWidth="100" Header="Delete" Visibility="{Binding Converter={StaticResource RoleToVisibilityConverter}, ConverterParameter=Administrator, Source={StaticResource proxy}}">
+                            <DataGridTemplateColumn MaxWidth="80" Header="Delete" Visibility="{Binding Converter={StaticResource RoleToVisibilityConverter}, ConverterParameter=Administrator, Source={StaticResource proxy}}" Width="*" >
                                 <DataGridTemplateColumn.HeaderStyle>
                                     <Style TargetType="DataGridColumnHeader">
                                         <Setter Property="HorizontalContentAlignment" Value="Center" />
@@ -253,6 +253,17 @@
                     </lvc:CartesianChart>
                     <ComboBox x:Name="cb_Years" HorizontalAlignment="Left" Margin="10,10,0,0" ItemsSource="{Binding Path=DistinctYears, Mode=OneWay, NotifyOnTargetUpdated=True}" TargetUpdated="cb_Years_TargetUpdated" VerticalAlignment="Top" Width="120" SelectedIndex="0" SelectionChanged="cb_Years_SelectionChanged"/>
                     <ComboBox x:Name="cb_Months" HorizontalAlignment="Left" Margin="135,10,0,0" ItemsSource="{Binding Path=DistinctMonths, Mode=OneWay, NotifyOnTargetUpdated=True}" TargetUpdated="cb_Months_TargetUpdated" VerticalAlignment="Top" Width="120" SelectedIndex="0" SelectionChanged="cb_Months_SelectionChanged"/>
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="tb_Logbook" Header="Logbook">
+                <Grid Background="#FFE5E5E5">
+                    <DataGrid IsReadOnly="True" x:Name="dg_Logbook" Margin="0,31,0,0" AutoGenerateColumns="False" CanUserResizeRows="False" Grid.ColumnSpan="3" >
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Date" Binding="{Binding Date, StringFormat=s}" Width="*" />
+                            <DataGridTextColumn Header="Action" Binding="{Binding Action}" Width="*" />
+                            <DataGridTextColumn Header="User" Binding="{Binding User}" Width="*" />
+                        </DataGrid.Columns>
+                    </DataGrid>
                 </Grid>
             </TabItem>
         </TabControl>

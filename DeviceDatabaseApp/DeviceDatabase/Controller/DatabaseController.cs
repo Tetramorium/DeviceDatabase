@@ -1,4 +1,5 @@
 ﻿using DeviceDatabase.Model;
+using DeviceDatabase.Model.Logging;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -11,15 +12,23 @@ namespace DeviceDatabase.Controller
 {
     public static class DatabaseController
     {
+
+        private static XmlController<Logbook> xmlController = new XmlController<Logbook>();
+        private static string logbookFilePath = "Model/Logging/Logbook.xml";
+        public static Logbook Logbook;
+
         public static void InitialSetup()
         {
+            Logbook = xmlController.Load(logbookFilePath);
+
             if (!System.IO.File.Exists("Database.sqlite"))
             {
                 SQLiteConnection.CreateFile("Database.sqlite");
 
+                AddLog("Created Database.sqlite file");
+
                 using (DatabaseContext dc = new DatabaseContext())
                 {
-
                     //https://sqlite.org/foreignkeys.html
 
                     // SQL Command for creating table Device
@@ -34,6 +43,8 @@ namespace DeviceDatabase.Controller
                         "  FOREIGN KEY (DeviceTypeId) REFERENCES DeviceType ON DELETE SET NULL, " +
                         "  CONSTRAINT name_unique UNIQUE (Name, SerialCode))"
                     );
+                    AddLog("Created table Device");
+
                     // SQL Command for creating table Calamity
                     dc.Database.ExecuteSqlCommand(
                         "CREATE TABLE IF NOT EXISTS 'Calamity' " +
@@ -45,6 +56,8 @@ namespace DeviceDatabase.Controller
                         "  FOREIGN KEY (CalamityId) REFERENCES Device ON DELETE CASCADE" +
                         " ) "
                     );
+                    AddLog("Created table Calamity");
+
                     // SQL Command for creating table DeviceType
                     dc.Database.ExecuteSqlCommand(
                         "CREATE TABLE IF NOT EXISTS 'DeviceType' " +
@@ -52,6 +65,7 @@ namespace DeviceDatabase.Controller
                         " 'Name' TEXT NOT NULL," +
                         "  CONSTRAINT name_unique UNIQUE (Name))"
                     );
+                    AddLog("Created table DeviceType");               
                     dc.SaveChanges();
                 }
 
@@ -93,6 +107,12 @@ namespace DeviceDatabase.Controller
             }
         }
 
+        private static void AddLog(string _Action)
+        {
+            Logbook.Add(new Log(_Action));
+            xmlController.save(logbookFilePath, Logbook);
+        }
+
         public static void AddDevice(Device _Device)
         {
             using (DatabaseContext dc = new DatabaseContext())
@@ -100,6 +120,8 @@ namespace DeviceDatabase.Controller
                 dc.Devices.Add(_Device);
                 dc.SaveChanges();
             }
+
+            AddLog("Added new Device");
         }
 
         public static void DeleteDevice(int _DeviceId)
@@ -110,6 +132,8 @@ namespace DeviceDatabase.Controller
                 dc.Entry(d).State = EntityState.Deleted;
                 dc.SaveChanges();
             }
+
+            AddLog("Deleted Device");
         }
 
         public static void EditDevice(Device _NewDevice)
@@ -122,6 +146,8 @@ namespace DeviceDatabase.Controller
                 dc.Entry(d).State = EntityState.Modified;
                 dc.SaveChanges();
             }
+
+            AddLog("Edited Device");
         }
 
         public static void DeleteDeviceType(int _DeviceTypeId)
@@ -132,6 +158,8 @@ namespace DeviceDatabase.Controller
                 dc.Entry(d).State = EntityState.Deleted;
                 dc.SaveChanges();
             }
+
+            AddLog("Deleted DeviceType");
         }
 
         public static bool CheckIfDeviceIsUnique(string _Name)
@@ -178,6 +206,8 @@ namespace DeviceDatabase.Controller
                     d.CalamityCollection.Add(_Calamity);
                     dc.Entry(d).State = EntityState.Modified;
                     dc.SaveChanges();
+
+                    AddLog("Added Calamity");
                 }
             }
         }
@@ -190,6 +220,8 @@ namespace DeviceDatabase.Controller
                 dc.Entry(d).State = EntityState.Deleted;
                 dc.SaveChanges();
             }
+
+            AddLog("Deleted Calamity");
         }
 
         public static void EditCalamity(Calamity _EditedCalamity)
@@ -203,6 +235,8 @@ namespace DeviceDatabase.Controller
                 dc.Entry(d).State = EntityState.Modified;
                 dc.SaveChanges();
             }
+
+            AddLog("Edited Calamity");
         }
 
         public static void AddDeviceType(DeviceType _DeviceType)
@@ -212,6 +246,8 @@ namespace DeviceDatabase.Controller
                 dc.DeviceTypes.Add(_DeviceType);
                 dc.SaveChanges();
             }
+
+            AddLog("Added DeviceType");
         }
 
         public static List<DeviceType> GetDeviceTypes()
@@ -231,6 +267,8 @@ namespace DeviceDatabase.Controller
                 dc.Entry(d).State = EntityState.Modified;
                 dc.SaveChanges();
             }
+
+            AddLog("Edited DeviceType");
         }
 
         public static bool CheckIfDeviceTypeIsUnique(string _Name)

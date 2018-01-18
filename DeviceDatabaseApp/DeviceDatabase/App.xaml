@@ -24,5 +24,9 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+        <!--https://stackoverflow.com/questions/2865505/how-do-i-hide-wpf-datagrid-row-selector-->
+        <Style TargetType="{x:Type DataGrid}">
+            <Setter Property="HeadersVisibility" Value="Column"/>
+        </Style>
     </Application.Resources>
 </Application>

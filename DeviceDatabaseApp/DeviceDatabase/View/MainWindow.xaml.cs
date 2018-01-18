@@ -67,6 +67,9 @@ namespace DeviceDatabase.View
             UpdateDeviceListView();
             UpdateDeviceTypeListView();
             UpdateCalamityListView();
+            UpdateLogbookView();
+
+            this.dg_Logbook.ItemsSource = DatabaseController.Logbook.LogList;
         }
 
         private void AddCalamity(object sender, RoutedEventArgs e)
@@ -80,6 +83,7 @@ namespace DeviceDatabase.View
                 DatabaseController.AddCalamity(d.DeviceId, acv.NewCalamity);
                 UpdateDeviceListView();
                 UpdateCalamityListView();
+                UpdateLogbookView();
                 liveChartsController.UpdateDistinctYears();
             }
         }
@@ -93,6 +97,7 @@ namespace DeviceDatabase.View
                 DatabaseController.DeleteDevice(d.DeviceId);
                 UpdateDeviceListView();
                 UpdateCalamityListView();
+                UpdateLogbookView();
                 liveChartsController.UpdateDistinctYears();
             }
         }
@@ -105,6 +110,7 @@ namespace DeviceDatabase.View
             {
                 DatabaseController.AddDevice(adv.NewDevice);
                 UpdateDeviceListView();
+                UpdateLogbookView();
             }
         }
 
@@ -119,6 +125,7 @@ namespace DeviceDatabase.View
                 DatabaseController.EditDevice(adv.NewDevice);
                 UpdateDeviceListView();
                 UpdateCalamityListView();
+                UpdateLogbookView();
                 liveChartsController.UpdateDistinctYears();
             }
         }
@@ -131,6 +138,7 @@ namespace DeviceDatabase.View
             {
                 DatabaseController.AddDeviceType(advt.NewDeviceType);
                 UpdateDeviceTypeListView();
+                UpdateLogbookView();
             }
         }
 
@@ -166,6 +174,11 @@ namespace DeviceDatabase.View
             {
                 this.dg_CalamityList.ItemsSource = DatabaseController.GetCalamities();
             }
+        }
+
+        private void UpdateLogbookView()
+        {
+            //this.dg_Logbook.ItemsSource = DatabaseController.Logbook.LogList;
         }
 
         private void cb_Years_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -241,6 +254,7 @@ namespace DeviceDatabase.View
                 DatabaseController.DeleteDeviceType(d.DeviceTypeId);
                 UpdateDeviceListView();
                 UpdateDeviceTypeListView();
+                UpdateLogbookView();
             }
         }
 
@@ -255,6 +269,7 @@ namespace DeviceDatabase.View
                 DatabaseController.EditDeviceType(adt.NewDeviceType);
                 UpdateDeviceListView();
                 UpdateDeviceTypeListView();
+                UpdateLogbookView();
             }
         }
 
@@ -269,6 +284,7 @@ namespace DeviceDatabase.View
                 DatabaseController.EditCalamity(acv.NewCalamity);
                 UpdateDeviceListView();
                 UpdateCalamityListView();
+                UpdateLogbookView();
                 liveChartsController.UpdateDistinctYears();
             }
         }
@@ -281,6 +297,7 @@ namespace DeviceDatabase.View
                 DatabaseController.DeleteCalamity(c.CalamityId);
                 UpdateCalamityListView();
                 UpdateDeviceListView();
+                UpdateLogbookView();
                 liveChartsController.UpdateDistinctYears();
             }
         }
