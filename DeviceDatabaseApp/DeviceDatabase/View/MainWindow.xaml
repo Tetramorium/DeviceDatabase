@@ -93,7 +93,7 @@
                                 </DataGridTemplateColumn.HeaderStyle>
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Button Click="ShowPrintBarcodePreview">Print</Button>
+                                        <Button Click="ShowPrintBarcodePreview">Save</Button>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
