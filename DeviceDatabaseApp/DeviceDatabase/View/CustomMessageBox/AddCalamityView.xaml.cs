@@ -24,12 +24,18 @@ namespace DeviceDatabase.View.CustomMessageBox
     public partial class AddCalamityView : Window
     {
         public Calamity NewCalamity { get; set; }
+        private DateTime today = DateTime.Today;
 
         public AddCalamityView(Window _Owner, string _DeviceName)
         {
             InitializeComponent();
 
-            this.dp_Date.SelectedDate = DateTime.Today;
+            //this.dp_Date.SelectedDate = DateTime.Today;
+
+            this.dp_Date.SelectedDate = today;
+            this.dp_Date.DisplayDateEnd = today;
+
+
             this.Owner = _Owner;
             this.Title = string.Format("Adding calamity for {0}", _DeviceName);
         }
@@ -49,11 +55,17 @@ namespace DeviceDatabase.View.CustomMessageBox
                 this.rtb_Description.Document = XamlReader.Parse(_OldCalamity.About) as FlowDocument;
 
             this.dp_Date.SelectedDate = _OldCalamity.Date;
+            
+            if (_OldCalamity.IsSolved)
+                this.dp_Date.DisplayDateEnd = _OldCalamity.IsSolvedDate;
+            else
+                this.dp_Date.DisplayDateEnd = today;
+
         }
 
         private void bt_AcceptAdd_Click(object sender, RoutedEventArgs e)
         {
-            if(this.dp_Date.SelectedDate != null)
+            if(this.dp_Date.SelectedDate != null && this.dp_Date.SelectedDate <= DateTime.Now)
             {
                 string about = RichTextBoxController.ConvertFlowDocumentToString(rtb_Description.Document);
                 this.NewCalamity = new Calamity(about, this.dp_Date.SelectedDate.Value);

@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="{Binding CalamityId, StringFormat='Calamity Id {0}'}" Height="271.858" Width="308.342" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" WindowStyle="ToolWindow">
     <Grid>
-        <DatePicker x:Name="dp_Date" HorizontalAlignment="Left" Margin="10,166,0,0" VerticalAlignment="Top" Width="271" FirstDayOfWeek="Monday" DisplayDateStart="{Binding Date}" SelectedDateFormat="Long"/>
+        <DatePicker x:Name="dp_Date" HorizontalAlignment="Left" Margin="10,166,0,0" VerticalAlignment="Top" Width="271" FirstDayOfWeek="Monday" SelectedDateFormat="Long"/>
         <Label Content="Solution:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
         <Button Name="bt_Accept" Content="Accept" HorizontalAlignment="Left" Margin="10,195,0,0" VerticalAlignment="Top" Width="75" Click="bt_Accept_Click"/>
         <Button Name="bt_Cancel" Content="Cancel" HorizontalAlignment="Left" Margin="206,195,0,0" VerticalAlignment="Top" Width="75" IsCancel="True"/>

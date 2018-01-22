@@ -17,7 +17,7 @@
         </Grid.RenderTransform>
         <Label HorizontalAlignment="Left" Margin="217,138,0,0" VerticalAlignment="Top"/>
         <Label Content="Description:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-        <DatePicker x:Name="dp_Date" HorizontalAlignment="Left" Margin="10,166,0,0" VerticalAlignment="Top" Width="285" FirstDayOfWeek="Monday" DisplayDateEnd="{Binding IsSolvedDate}" SelectedDateFormat="Long"/>
+        <DatePicker x:Name="dp_Date" HorizontalAlignment="Left" Margin="10,166,0,0" VerticalAlignment="Top" Width="285" FirstDayOfWeek="Monday" SelectedDateFormat="Long"/>
         <Button x:Name="bt_Cancel" Content="Cancel" HorizontalAlignment="Left" Margin="220,195,0,0" VerticalAlignment="Top" Width="75" IsCancel="True"/>
         <Button x:Name="bt_Accept" Content="Accept" HorizontalAlignment="Left" Margin="10,195,0,0" VerticalAlignment="Top" Width="75" Click="bt_AcceptAdd_Click"/>
         <RichTextBox Name="rtb_Description" HorizontalAlignment="Left" Height="120" Margin="10,41,0,0" VerticalAlignment="Top" Width="285">

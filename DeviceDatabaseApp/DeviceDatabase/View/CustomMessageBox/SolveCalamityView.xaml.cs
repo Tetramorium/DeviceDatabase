@@ -33,9 +33,12 @@ namespace DeviceDatabase.View.CustomMessageBox
 
             this.Calamity = _Calamity;
 
-            this.DataContext = Calamity;
-
             this.dp_Date.SelectedDate = DateTime.Today;
+
+            DateTime d = Calamity.Date;
+            this.dp_Date.DisplayDateStart = d;
+
+            this.DataContext = Calamity;
         }
 
         private void bt_Accept_Click(object sender, RoutedEventArgs e)

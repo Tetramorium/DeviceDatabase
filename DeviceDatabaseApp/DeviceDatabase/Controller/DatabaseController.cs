@@ -82,42 +82,48 @@ namespace DeviceDatabase.Controller
                     dc.SaveChanges();
                 }
 
-                // Next lines of code are initial test values for the database
                 // ToDo Should be removed before publishing to client :)
+                //createInitialValues();
 
-                DeviceType dt_Server = new DeviceType("Server");
-                DeviceType dt_Display = new DeviceType("Display");
-                DeviceType dt_Workstation = new DeviceType("Workstation");
-
-                AddDeviceType(dt_Server);
-                AddDeviceType(dt_Display);
-                AddDeviceType(dt_Workstation);
-
-                List<DeviceType> DeviceTypes = GetDeviceTypes();
-
-                Device d_Server = new Device("Server_042", DeviceTypes.FirstOrDefault(e => e.Name == "Server").DeviceTypeId);
-                Device d_Laptop = new Device("Laptop_001", DeviceTypes.FirstOrDefault(e => e.Name == "Workstation").DeviceTypeId);
-                Device d_Beamer = new Device("Beamer_123", DeviceTypes.FirstOrDefault(e => e.Name == "Display").DeviceTypeId);
-
-                AddDevice(d_Server);
-                AddDevice(d_Laptop);
-                AddDevice(d_Beamer);
-
-                AddCalamity(d_Server.DeviceId, new Calamity("Many smoke", new DateTime(1992, 01, 24), true));
-                AddCalamity(d_Server.DeviceId, new Calamity("Many smoke", new DateTime(1992, 01, 27), true));
-                AddCalamity(d_Server.DeviceId, new Calamity("Many smoke", new DateTime(1992, 02, 04), true));
-                AddCalamity(d_Server.DeviceId, new Calamity("Many smoke", new DateTime(1992, 02, 10), false));
-
-                AddCalamity(d_Server.DeviceId, new Calamity("Many smoke", new DateTime(1993, 01, 24), true));
-                AddCalamity(d_Server.DeviceId, new Calamity("Many smoke", new DateTime(1992, 01, 27), true));
-                AddCalamity(d_Server.DeviceId, new Calamity("Many smoke", new DateTime(1993, 02, 04), true));
-                AddCalamity(d_Server.DeviceId, new Calamity("Many smoke", new DateTime(1992, 02, 10), false));
-
-                AddCalamity(d_Server.DeviceId, new Calamity("Many smoke", new DateTime(1997, 08, 31)));
-
-                AddCalamity(d_Laptop.DeviceId, new Calamity("Many smoke", new DateTime(1993, 07, 22)));
-                AddCalamity(d_Laptop.DeviceId, new Calamity("Many smokes, Many fire, Much confusion, Many firemen", new DateTime(1997, 08, 31)));
             }
+        }
+
+        private static void CreateInitialValues()
+        {
+            // Next lines of code are initial test values for the database
+
+            DeviceType dt_Server = new DeviceType("Server");
+            DeviceType dt_Display = new DeviceType("Display");
+            DeviceType dt_Workstation = new DeviceType("Workstation");
+
+            AddDeviceType(dt_Server);
+            AddDeviceType(dt_Display);
+            AddDeviceType(dt_Workstation);
+
+            List<DeviceType> DeviceTypes = GetDeviceTypes();
+
+            Device d_Server = new Device("Server_042", DeviceTypes.FirstOrDefault(e => e.Name == "Server").DeviceTypeId);
+            Device d_Laptop = new Device("Laptop_001", DeviceTypes.FirstOrDefault(e => e.Name == "Workstation").DeviceTypeId);
+            Device d_Beamer = new Device("Beamer_123", DeviceTypes.FirstOrDefault(e => e.Name == "Display").DeviceTypeId);
+
+            AddDevice(d_Server);
+            AddDevice(d_Laptop);
+            AddDevice(d_Beamer);
+
+            AddCalamity(d_Server.DeviceId, new Calamity("Many smoke", new DateTime(1992, 01, 24), true));
+            AddCalamity(d_Server.DeviceId, new Calamity("Many smoke", new DateTime(1992, 01, 27), true));
+            AddCalamity(d_Server.DeviceId, new Calamity("Many smoke", new DateTime(1992, 02, 04), true));
+            AddCalamity(d_Server.DeviceId, new Calamity("Many smoke", new DateTime(1992, 02, 10), false));
+
+            AddCalamity(d_Server.DeviceId, new Calamity("Many smoke", new DateTime(1993, 01, 24), true));
+            AddCalamity(d_Server.DeviceId, new Calamity("Many smoke", new DateTime(1992, 01, 27), true));
+            AddCalamity(d_Server.DeviceId, new Calamity("Many smoke", new DateTime(1993, 02, 04), true));
+            AddCalamity(d_Server.DeviceId, new Calamity("Many smoke", new DateTime(1992, 02, 10), false));
+
+            AddCalamity(d_Server.DeviceId, new Calamity("Many smoke", new DateTime(1997, 08, 31)));
+
+            AddCalamity(d_Laptop.DeviceId, new Calamity("Many smoke", new DateTime(1993, 07, 22)));
+            AddCalamity(d_Laptop.DeviceId, new Calamity("Many smokes, Many fire, Much confusion, Many firemen", new DateTime(1997, 08, 31)));
         }
 
         private static void AddLog(string _Action)
